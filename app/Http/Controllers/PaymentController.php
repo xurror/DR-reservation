@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use app\Payment;
 
 class PaymentController extends Controller
 {
@@ -14,6 +15,7 @@ class PaymentController extends Controller
     public function index()
     {
         //
+        return Payment::all();
     }
 
     /**
@@ -23,7 +25,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        // return redirect to create page
     }
 
     /**
@@ -34,7 +36,22 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate input
+        /*
+        $this->validate($request, [
+            'ammount' => 'required',
+            'payment_date' => 'required'
+        ]);
+        */
+
+        // Create payment
+        $payment = new Payment;
+        $payment->amount = $request->input('amount');
+        $payment->payment_date = $request->input('payment_date');
+        $payment->save();
+
+        // return redirect
+        return redirect('/payment')->with('success', 'payment made');
     }
 
     /**
@@ -46,6 +63,7 @@ class PaymentController extends Controller
     public function show($id)
     {
         //
+        return Payment::find($id);
     }
 
     /**
@@ -56,7 +74,8 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Payment::find($id);
+        // return update uri
     }
 
     /**
@@ -68,7 +87,22 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //validate input
+        /*
+        $this->validate($request, [
+            'ammount' => 'required',
+            'payment_date' => 'required'
+        ]);
+        */
+
+        // Create payment
+        $payment = Payment::find($id);
+        $payment->amount = $request->input('amount');
+        $payment->payment_date = $request->input('payment_date');
+        $payment->save();
+
+        // return redirect
+        return redirect('/payment')->with('success', 'payment made');
     }
 
     /**

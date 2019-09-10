@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Reservation;
 
 class ReservationController extends Controller
 {
@@ -14,6 +15,7 @@ class ReservationController extends Controller
     public function index()
     {
         //
+        return Reservation::all();
     }
 
     /**
@@ -23,7 +25,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        //
+        // return redirect to create page
     }
 
     /**
@@ -34,7 +36,26 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate input
+        /*
+        $this->validate($request, [
+            'reservation_date' => 'required',
+            'expiry_date' => 'required',
+            'reservation_status' => 'required',
+            'No_of_rooms' => 'required',
+        ]);
+        */
+
+        // Create customer
+        $reservation = new Reservation;
+        $reservation->reservation_date = $request->input('reservation_date');
+        $reservation->expiry_date = $request->input('expiry_date');
+        $reservation->reservation_status = $request->input('reservation_status');
+        $reservation->No_of_rooms = $request->input('No_of_rooms');
+        $reservation->save();
+
+        // return redirect
+        return redirect('/reservation')->with('success', 'reservation made');
     }
 
     /**
@@ -46,6 +67,7 @@ class ReservationController extends Controller
     public function show($id)
     {
         //
+        return Reservation::find($id);
     }
 
     /**
@@ -57,6 +79,7 @@ class ReservationController extends Controller
     public function edit($id)
     {
         //
+        return Reservation::find($id);
     }
 
     /**
@@ -68,7 +91,26 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validate input
+        /*
+        $this->validate($request, [
+            'reservation_date' => 'required',
+            'expiry_date' => 'required',
+            'reservation_status' => 'required',
+            'No_of_rooms' => 'required',
+        ]);
+        */
+
+        // Create customer
+        $reservation = Reservation::find($id);
+        $reservation->reservation_date = $request->input('reservation_date');
+        $reservation->expiry_date = $request->input('expiry_date');
+        $reservation->reservation_status = $request->input('reservation_status');
+        $reservation->No_of_rooms = $request->input('No_of_rooms');
+        $reservation->save();
+
+        // return redirect
+        return redirect('/reservation')->with('success', 'reservation made');
     }
 
     /**

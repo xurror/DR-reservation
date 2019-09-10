@@ -30,7 +30,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        // 
+        // return redirect to create page
     }
 
     /**

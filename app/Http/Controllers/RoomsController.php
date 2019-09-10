@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rooms;
 
 class RoomsController extends Controller
 {
@@ -13,7 +14,8 @@ class RoomsController extends Controller
      */
     public function index()
     {
-        //
+        // return all
+        return Rooms::all();
     }
 
     /**
@@ -23,7 +25,7 @@ class RoomsController extends Controller
      */
     public function create()
     {
-        //
+        // return redirect
     }
 
     /**
@@ -34,7 +36,26 @@ class RoomsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate input
+        /*
+        $this->validate($request, [
+            'room_size' => 'required',
+            'room_description' => 'required',
+            'room_price' => 'required',
+            'room_status' => 'required'
+        ]);
+        */
+
+        // create room
+        $room = new Rooms;
+        $room->room_size = $request->input('room_size');
+        $room->room_description = $request->input('room_description');
+        $room->room_price = $request->input('room_price');
+        $room->room_status = $request->input('room_status');
+        $room->save();
+
+        // return redirect
+        return redirect('/rooms')->with('success', 'Room created');
     }
 
     /**
@@ -46,6 +67,7 @@ class RoomsController extends Controller
     public function show($id)
     {
         //
+        return Rooms::find($id);
     }
 
     /**
@@ -57,6 +79,7 @@ class RoomsController extends Controller
     public function edit($id)
     {
         //
+        return Rooms::find($id);
     }
 
     /**
@@ -69,6 +92,25 @@ class RoomsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // validate input
+        /*
+        $this->validate($request, [
+            'room_size' => 'required',
+            'room_description' => 'required',
+            'room_price' => 'required',
+            'room_status' => 'required'
+        ]);
+        */
+
+        // create room
+        $room = Rooms::find($id);
+        $room->room_size = $request->input('room_size');
+        $room->room_description = $request->input('room_description');
+        $room->room_price = $request->input('room_price');
+        $room->room_status = $request->input('room_status');
+
+        // return redirect
+        return redirect('/rooms')->with('success', 'Room created');
     }
 
     /**
