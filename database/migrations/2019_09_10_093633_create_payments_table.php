@@ -14,12 +14,11 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->smallInteger('reservation_id')->nullable(false);
+            $table->increments('id');
+            $table->unsignedInteger('reservation_id')->nullable(false);
             $table->foreign('reservation_id')->references('id')->on('reservations');
             $table->string('amount', 100)->nullable(false);
             $table->timestamp('payment_date')->nullable(false);
-            $table->timestamps();
         });
     }
 

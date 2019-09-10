@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Payment;
+use App\Reservation;
 
-class PaymentController extends Controller
+class ReservationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PaymentController extends Controller
     public function index()
     {
         //
-        return Payment::all();
+        return Reservation::all();
     }
 
     /**
@@ -36,22 +36,26 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //validate input
+        // validate input
         /*
         $this->validate($request, [
-            'ammount' => 'required',
-            'payment_date' => 'required'
+            'reservation_date' => 'required',
+            'expiry_date' => 'required',
+            'reservation_status' => 'required',
+            'No_of_rooms' => 'required',
         ]);
         */
 
-        // Create payment
-        $payment = new Payment;
-        $payment->amount = $request->input('amount');
-        $payment->payment_date = $request->input('payment_date');
-        $payment->save();
+        // Create customer
+        $reservation = new Reservation;
+        $reservation->reservation_date = $request->input('reservation_date');
+        $reservation->expiry_date = $request->input('expiry_date');
+        $reservation->reservation_status = $request->input('reservation_status');
+        $reservation->No_of_rooms = $request->input('No_of_rooms');
+        $reservation->save();
 
         // return redirect
-        return redirect('/payment')->with('success', 'payment made');
+        return redirect('/reservation')->with('success', 'reservation made');
     }
 
     /**
@@ -63,7 +67,7 @@ class PaymentController extends Controller
     public function show($id)
     {
         //
-        return Payment::find($id);
+        return Reservation::find($id);
     }
 
     /**
@@ -74,8 +78,8 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        return Payment::find($id);
-        // return update uri
+        //
+        return Reservation::find($id);
     }
 
     /**
@@ -87,22 +91,26 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //validate input
+        // validate input
         /*
         $this->validate($request, [
-            'ammount' => 'required',
-            'payment_date' => 'required'
+            'reservation_date' => 'required',
+            'expiry_date' => 'required',
+            'reservation_status' => 'required',
+            'No_of_rooms' => 'required',
         ]);
         */
 
-        // Create payment
-        $payment = Payment::find($id);
-        $payment->amount = $request->input('amount');
-        $payment->payment_date = $request->input('payment_date');
-        $payment->save();
+        // Create customer
+        $reservation = Reservation::find($id);
+        $reservation->reservation_date = $request->input('reservation_date');
+        $reservation->expiry_date = $request->input('expiry_date');
+        $reservation->reservation_status = $request->input('reservation_status');
+        $reservation->No_of_rooms = $request->input('No_of_rooms');
+        $reservation->save();
 
         // return redirect
-        return redirect('/payment')->with('success', 'payment made');
+        return redirect('/reservation')->with('success', 'reservation made');
     }
 
     /**

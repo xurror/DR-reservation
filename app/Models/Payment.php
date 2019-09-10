@@ -7,15 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     // table
-    protected $table = 'payment';
-    // primary key
-    public $primaryKey = 'payment_id';
+    protected $table = 'payments';
     // timestamps
     public $timestamps = false;
 
     // relations
     public function reservation()
     {
-        return $this->belongsTo('App\Reservation');
+        return $this->belongsTo('App\Models\Reservation');
     }
 }

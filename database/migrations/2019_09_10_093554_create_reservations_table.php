@@ -14,16 +14,15 @@ class CreateReservationsTable extends Migration
     public function up()
     {
         Schema::create('reservations', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->smallInteger('customer_id')->nullable(false);
-            $table->smallInteger('room_id')->nullable(false);
-            $table->date('reservation_date')->nullable(false)->default(new DateTime());
-            $table->date('expiry_date')->nullable(false)->default(new DateTime());
-            $table->boolean('status')->nullable(false)->default(false);
-            $table->smallInteger('No_of_rooms')->nullable()->default(12);
+            $table->increments('id');
+            $table->unsignedInteger('customer_id')->nullable(false);
+            $table->unsignedInteger('room_id')->nullable(false);
+            $table->date('reservation_date')->nullable();
+            $table->date('expiry_date')->nullable();
+            $table->boolean('status')->nullable()->default(false);
+            $table->unsignedInteger('No_of_rooms')->nullable(false);
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('room_id')->references('id')->on('rooms');
-            $table->timestamps();
         });
     }
 

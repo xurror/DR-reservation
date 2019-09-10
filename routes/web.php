@@ -19,8 +19,10 @@ Route::get('/about', function () {
     return 'About';
 });
 
-Route::resource('customer', 'CustomerController');
-
 Route::resource('rooms', 'RoomsController');
 
-Route::resource('reservation', 'ReservationController');
+Route::resource('payments', 'PaymentsController');
+
+Route::resource('customers', 'CustomersController');
+
+Route::resource('reservations', 'ReservationsController');

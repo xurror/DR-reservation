@@ -8,14 +8,12 @@ class Room extends Model
 {
     // table
     protected $table = 'rooms';
-    // primary key
-    public $primaryKey = 'room_id';
     // timestamps
     public $timestamps = false;
 
     // Relations
     public function reservation()
     {
-        return $this->hasMany('App\Reservation');
+        return $this->hasMany('App\Models\Reservation');
     }
 }
