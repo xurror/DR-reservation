@@ -8,8 +8,6 @@ class Room extends Model
 {
     // table
     protected $table = 'rooms';
-    // timestamps
-    public $timestamps = false;
 
     // Relations
     public function reservation()

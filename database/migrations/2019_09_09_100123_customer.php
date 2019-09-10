@@ -24,6 +24,7 @@ class Customer extends Migration
             $table->string('current_address', 100)->nullable(false);
             $table->integer('telephone')->unsigned()->nullable(false);
             $table->string('email', 100)->nullable(false);
+            $table->timestamps();
         });
     }
 

@@ -8,8 +8,6 @@ class Payment extends Model
 {
     // table
     protected $table = 'payments';
-    // timestamps
-    public $timestamps = false;
 
     // relations
     public function reservation()

@@ -19,6 +19,7 @@ class CreateRoomsTable extends Migration
             $table->mediumText('room_description');
             $table->string('room_price', 100)->nullable(false);
             $table->boolean('room_status')->nullable(false)->default(false);
+            $table->timestamps();
         });
     }
 

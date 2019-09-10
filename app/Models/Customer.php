@@ -8,8 +8,6 @@ class Customer extends Model
 {
     // table
     protected $table = 'customers';
-    // timestamps
-    public $timestamps = false;
 
     // Relations
     public function reservation()
