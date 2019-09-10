@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', function () {
-    return 'Hello, World!';
+Route::get('/about', function () {
+    return 'About';
 });
+
+Route::resource('customer', 'CustomerController');
+
+Route::resource('rooms', 'RoomsController');
+
+Route::resource('reservation', 'ReservationController');
