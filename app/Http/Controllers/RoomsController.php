@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Apps\Rooms;
+use App\Room;
 
 class RoomsController extends Controller
 {
@@ -15,7 +15,7 @@ class RoomsController extends Controller
     public function index()
     {
         // return all
-        return Rooms::all();
+        return Room::all();
     }
 
     /**
@@ -47,7 +47,7 @@ class RoomsController extends Controller
         */
 
         // create room
-        $room = new Rooms;
+        $room = new Room;
         $room->room_size = $request->input('room_size');
         $room->room_description = $request->input('room_description');
         $room->room_price = $request->input('room_price');
@@ -67,7 +67,7 @@ class RoomsController extends Controller
     public function show($id)
     {
         //
-        return Rooms::find($id);
+        return Room::find($id);
     }
 
     /**
@@ -79,7 +79,7 @@ class RoomsController extends Controller
     public function edit($id)
     {
         //
-        return Rooms::find($id);
+        return Room::find($id);
     }
 
     /**
@@ -103,7 +103,7 @@ class RoomsController extends Controller
         */
 
         // create room
-        $room = Rooms::find($id);
+        $room = Room::find($id);
         $room->room_size = $request->input('room_size');
         $room->room_description = $request->input('room_description');
         $room->room_price = $request->input('room_price');

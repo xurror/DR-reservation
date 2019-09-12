@@ -17,11 +17,11 @@ class Reservation extends Model
 
     public function rooms()
     {
-        return $this->belongsTo('App\Rooms');
+        return $this->belongsTo('App\Models\Rooms');
     }
 
     public function payment()
     {
-        return $this->hasMany('App\Payment');
+        return $this->hasMany('App\Models\Payment');
     }
 }

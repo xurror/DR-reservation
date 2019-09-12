@@ -15,12 +15,14 @@ class CustomersController extends Controller
     public function index()
     {
         // return all data from customer table
-        return Customer::all();        
+        // return Customer::all();        
         // return customer::orderBy('customer_id', 'asc')->get();
 
         // Return paginate
         // return customer::orderBy('customer_id', 'asc')->paginate(1);
-        //return DB::select('SELECT * FROM customer');
+        // return DB::select('SELECT * FROM customer');
+        $customers = Customer::all();
+        return view('customers.index')->with('customers', $customers);
     }
 
     /**
