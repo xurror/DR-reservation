@@ -21,8 +21,10 @@ class CreateReservationsTable extends Migration
             $table->date('expiry_date')->nullable();
             $table->boolean('status')->nullable()->default(false);
             $table->unsignedInteger('No_of_rooms')->nullable(false);
-            $table->foreign('customer_id')->references('id')->on('customers');
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->foreign('customer_id')->references('id')->on('customers')
+            ->onUpdate('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms')
+            ->onUpdate('cascade');
             $table->timestamps();
         });
     }

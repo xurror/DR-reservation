@@ -32,7 +32,7 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        // return redirect to create page
+        return view('customers.create');
     }
 
     /**
@@ -44,7 +44,6 @@ class CustomersController extends Controller
     public function store(Request $request)
     {
         // validate input
-        /*
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -56,7 +55,6 @@ class CustomersController extends Controller
             'telephone' => 'required',
             'email' => 'required'
         ]);
-        */
 
         // Create Customer
         $customer = new Customer;
@@ -65,27 +63,16 @@ class CustomersController extends Controller
         $customer->SSN = $request->input('SSN');
         $customer->age = $request->input('age');
         $customer->date_of_birth = $request->input('date_of_birth');
+        $customer->occupation = $request->input('occupation');
         $customer->current_address = $request->input('current_address');
         $customer->telephone = $request->input('telephone');
         $customer->email = $request->input('email');
         $customer->save();
 
         // return redirect('/customer');
-        return redirect('/customer')->with('success', 'Customer Created');
+        return redirect('/customers')->with('success', 'Customer Created');
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-        return Customer::find($id);
-    }
+    }    
 
     /**
      * Show the form for editing the specified resource.
@@ -94,10 +81,9 @@ class CustomersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        return Customer::find($id);
-        // return update uri
-        
+    {   
+        $customer = Customer::find($id);
+        return view('customers.edit')->with('customer', $customer);
     }
 
     /**
@@ -110,7 +96,6 @@ class CustomersController extends Controller
     public function update(Request $request, $id)
     {
         // validate input
-        /*
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -122,7 +107,6 @@ class CustomersController extends Controller
             'telephone' => 'required',
             'email' => 'required'
         ]);
-        */
 
         // Create Customer
         $customer = Customer::find($id);
@@ -131,14 +115,13 @@ class CustomersController extends Controller
         $customer->SSN = $request->input('SSN');
         $customer->age = $request->input('age');
         $customer->date_of_birth = $request->input('date_of_birth');
+        $customer->occupation = $request->input('occupation');
         $customer->current_address = $request->input('current_address');
         $customer->telephone = $request->input('telephone');
         $customer->email = $request->input('email');
         $customer->save();
 
-        // return redirect('/customer');
-        return redirect('/customer')->with('success', 'Customer Created');
-
+        return redirect('/customers')->with('success', 'Customer Updated');
     }
 
     /**
@@ -149,6 +132,8 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer->delete();
+        return redirect('/customers')->with('success', 'Customer Deleted');
     }
 }

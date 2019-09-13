@@ -8,9 +8,16 @@
     <title>DR-Reservations</title>
 </head>
 <body>
-    @include('inc.navbar')
-    <div class="container">
-        @yield('content')
+    <div id="app">
+        @include('inc.navbar')
+
+        <div class="container">
+            @include('inc.messages')
+            @yield('content')
+        </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
