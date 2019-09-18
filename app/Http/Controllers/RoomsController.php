@@ -106,9 +106,10 @@ class RoomsController extends Controller
         $room->room_description = $request->input('room_description');
         $room->room_price = $request->input('room_price');
         $room->room_status = $request->input('room_status');
+        $room->save();
 
         // return redirect
-        return redirect('/rooms')->with('success', 'Room created');
+        return redirect('/rooms')->with('success', 'Room Updated');
     }
 
     /**

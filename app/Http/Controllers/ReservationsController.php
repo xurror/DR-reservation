@@ -40,7 +40,7 @@ class ReservationsController extends Controller
         $this->validate($request, [
             'reservation_date' => 'required',
             'expiry_date' => 'required',
-            'reservation_status' => 'required',
+            'status' => 'required',
             'No_of_rooms' => 'required',
         ]);
 
@@ -48,7 +48,7 @@ class ReservationsController extends Controller
         $reservation = new Reservation;
         $reservation->reservation_date = $request->input('reservation_date');
         $reservation->expiry_date = $request->input('expiry_date');
-        $reservation->reservation_status = $request->input('reservation_status');
+        $reservation->status = $request->input('reservation_status');
         $reservation->No_of_rooms = $request->input('No_of_rooms');
         $reservation->save();
 
@@ -93,7 +93,7 @@ class ReservationsController extends Controller
         $this->validate($request, [
             'reservation_date' => 'required',
             'expiry_date' => 'required',
-            'reservation_status' => 'required',
+            'status' => 'required',
             'No_of_rooms' => 'required',
         ]);
 
@@ -101,7 +101,7 @@ class ReservationsController extends Controller
         $reservation = Reservation::find($id);
         $reservation->reservation_date = $request->input('reservation_date');
         $reservation->expiry_date = $request->input('expiry_date');
-        $reservation->reservation_status = $request->input('reservation_status');
+        $reservation->status = $request->input('reservation_status');
         $reservation->No_of_rooms = $request->input('No_of_rooms');
         $reservation->save();
 
