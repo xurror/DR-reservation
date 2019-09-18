@@ -14,8 +14,8 @@ class PaymentsController extends Controller
      */
     public function index()
     {
-        //
-        return Payment::all();
+        $payments = Payment::all();
+        return view('payments.index')->with('payments', $payments);
     }
 
     /**
@@ -25,7 +25,7 @@ class PaymentsController extends Controller
      */
     public function create()
     {
-        // return redirect to create page
+        return view('payments.create');
     }
 
     /**
@@ -37,12 +37,10 @@ class PaymentsController extends Controller
     public function store(Request $request)
     {
         //validate input
-        /*
         $this->validate($request, [
             'ammount' => 'required',
             'payment_date' => 'required'
         ]);
-        */
 
         // Create payment
         $payment = new Payment;
@@ -51,7 +49,7 @@ class PaymentsController extends Controller
         $payment->save();
 
         // return redirect
-        return redirect('/payment')->with('success', 'payment made');
+        return redirect('/payments')->with('success', 'payment made');
     }
 
     /**
@@ -62,8 +60,8 @@ class PaymentsController extends Controller
      */
     public function show($id)
     {
-        //
-        return Payment::find($id);
+        $payment = Payment::find($id);
+        return view('payments.show')->with('payment', $payment);
     }
 
     /**
@@ -74,8 +72,8 @@ class PaymentsController extends Controller
      */
     public function edit($id)
     {
-        return Payment::find($id);
-        // return update uri
+        $payment = Payment::find($id);
+        return view('payments.show')->with('payment', $payment);
     }
 
     /**
@@ -88,12 +86,10 @@ class PaymentsController extends Controller
     public function update(Request $request, $id)
     {
         //validate input
-        /*
         $this->validate($request, [
             'ammount' => 'required',
             'payment_date' => 'required'
         ]);
-        */
 
         // Create payment
         $payment = Payment::find($id);
@@ -102,7 +98,7 @@ class PaymentsController extends Controller
         $payment->save();
 
         // return redirect
-        return redirect('/payment')->with('success', 'payment made');
+        return redirect('/payments')->with('success', 'payment made');
     }
 
     /**
@@ -113,6 +109,8 @@ class PaymentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = Payment::find($id);
+        $payment->delete();
+        return redirect('/payments')->with('success', 'payment deleted');
     }
 }

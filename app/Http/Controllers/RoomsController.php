@@ -15,7 +15,8 @@ class RoomsController extends Controller
     public function index()
     {
         // return all
-        return Room::all();
+        $rooms = Room::all();
+        return view('rooms.index')->with('rooms', $rooms);
     }
 
     /**
@@ -25,7 +26,7 @@ class RoomsController extends Controller
      */
     public function create()
     {
-        // return redirect
+        return view('rooms.create');
     }
 
     /**
@@ -37,14 +38,12 @@ class RoomsController extends Controller
     public function store(Request $request)
     {
         // validate input
-        /*
         $this->validate($request, [
             'room_size' => 'required',
             'room_description' => 'required',
             'room_price' => 'required',
             'room_status' => 'required'
         ]);
-        */
 
         // create room
         $room = new Room;
@@ -67,7 +66,8 @@ class RoomsController extends Controller
     public function show($id)
     {
         //
-        return Room::find($id);
+        $room = Room::find($id);
+        return view('rooms.show')->with('room', $room);
     }
 
     /**
@@ -79,7 +79,8 @@ class RoomsController extends Controller
     public function edit($id)
     {
         //
-        return Room::find($id);
+        $room = Room::find($id);
+        return view('rooms.edit')->with('room', $room);
     }
 
     /**
@@ -91,16 +92,13 @@ class RoomsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         // validate input
-        /*
         $this->validate($request, [
             'room_size' => 'required',
             'room_description' => 'required',
             'room_price' => 'required',
             'room_status' => 'required'
         ]);
-        */
 
         // create room
         $room = Room::find($id);
@@ -121,6 +119,8 @@ class RoomsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = customer::find($id);
+        $customer->delete();
+        return redirect('/rooms')->with('success', 'Room Deleted');
     }
 }

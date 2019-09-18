@@ -14,8 +14,8 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        //
-        return Reservation::all();
+        $reservations = Reservation::all();
+        return view('reservations.index')->with('reservations', $reservations);
     }
 
     /**
@@ -25,7 +25,7 @@ class ReservationsController extends Controller
      */
     public function create()
     {
-        // return redirect to create page
+        return view('reservations.create');
     }
 
     /**
@@ -37,14 +37,12 @@ class ReservationsController extends Controller
     public function store(Request $request)
     {
         // validate input
-        /*
         $this->validate($request, [
             'reservation_date' => 'required',
             'expiry_date' => 'required',
             'reservation_status' => 'required',
             'No_of_rooms' => 'required',
         ]);
-        */
 
         // Create customer
         $reservation = new Reservation;
@@ -55,7 +53,7 @@ class ReservationsController extends Controller
         $reservation->save();
 
         // return redirect
-        return redirect('/reservation')->with('success', 'reservation made');
+        return redirect('/reservations')->with('success', 'reservation made');
     }
 
     /**
@@ -66,8 +64,8 @@ class ReservationsController extends Controller
      */
     public function show($id)
     {
-        //
-        return Reservation::find($id);
+        $reservation = Reservation::find($id);
+        return view('reservations.show')->with('reservation', $reservation);
     }
 
     /**
@@ -78,8 +76,8 @@ class ReservationsController extends Controller
      */
     public function edit($id)
     {
-        //
-        return Reservation::find($id);
+        $reservation = Reservation::find($id);
+        return view('reservations.edit')->with('reservation', $reservation);
     }
 
     /**
@@ -92,14 +90,12 @@ class ReservationsController extends Controller
     public function update(Request $request, $id)
     {
         // validate input
-        /*
         $this->validate($request, [
             'reservation_date' => 'required',
             'expiry_date' => 'required',
             'reservation_status' => 'required',
             'No_of_rooms' => 'required',
         ]);
-        */
 
         // Create customer
         $reservation = Reservation::find($id);
@@ -110,7 +106,7 @@ class ReservationsController extends Controller
         $reservation->save();
 
         // return redirect
-        return redirect('/reservation')->with('success', 'reservation made');
+        return redirect('/reservations')->with('success', 'reservation made');
     }
 
     /**
@@ -121,6 +117,8 @@ class ReservationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reservation = Reservation::find($id);
+        $reservation->delete();
+        return redirect('/reservations')->with('success', 'Reservation deleted');
     }
 }
