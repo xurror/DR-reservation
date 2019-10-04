@@ -26,3 +26,7 @@ Route::resource('payments', 'PaymentsController');
 Route::resource('customers', 'CustomersController');
 
 Route::resource('reservations', 'ReservationsController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
