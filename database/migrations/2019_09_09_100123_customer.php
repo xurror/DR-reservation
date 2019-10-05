@@ -21,7 +21,11 @@ class Customer extends Migration
             $table->unsignedInteger('age')->nullable(false);
             $table->date('date_of_birth')->nullable(false);
             $table->string('occupation', 100)->nullable(false);
-            $table->string('current_address', 100)->nullable(false);
+            $table->string('address_line_1', 100)->nullable(false);
+            $table->string('address_line_2', 100)->nullable();
+            $table->string('city', 100)->nullable(false);
+            $table->integer('postal_code')->unsigned()->nullable(false);
+            $table->string('country_code', 2)->nullable(false);
             $table->integer('telephone')->unsigned()->nullable(false);
             $table->string('email', 100)->nullable(false);
             $table->timestamps();

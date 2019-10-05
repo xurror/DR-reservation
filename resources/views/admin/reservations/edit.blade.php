@@ -3,8 +3,8 @@
 @section('content')
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="/reservations">reservations</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin/reservations">reservations</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{$reservation->reservation_date}}</li>
         </ol>
     </nav>

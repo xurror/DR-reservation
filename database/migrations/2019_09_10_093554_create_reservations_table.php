@@ -17,13 +17,16 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('customer_id')->nullable(false);
             $table->unsignedInteger('room_id')->nullable(false);
-            $table->date('reservation_date')->nullable();
-            $table->date('expiry_date')->nullable();
-            $table->boolean('status')->nullable()->default(false);
+            $table->unsignedInteger('payment_id')->nullable(false);
+            $table->date('from')->nullable();
+            $table->date('to')->nullable();
+            $table->string('status', 100);
             $table->unsignedInteger('No_of_rooms')->nullable(false);
             $table->foreign('customer_id')->references('id')->on('customers')
             ->onUpdate('cascade');
             $table->foreign('room_id')->references('id')->on('rooms')
+            ->onUpdate('cascade');
+            $table->foreign('payment_id')->references('id')->on('payments')
             ->onUpdate('cascade');
             $table->timestamps();
         });

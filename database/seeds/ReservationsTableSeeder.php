@@ -14,6 +14,9 @@ class ReservationsTableSeeder extends Seeder
     {
         $customer_ids = DB::table('customers')->pluck('id')->toArray();
         $room_ids = DB::table('rooms')->pluck('id')->toArray();
+        $payment_ids = DB::table('payments')->pluck('id')->toArray();
+
+        $status = ['Reserved/Fully Paid', 'Reserved/Partially Paid'. 'Reserved/Not paid'];
 
         $year = rand(2009, 2016);
         $month = rand(1, 12);
@@ -24,9 +27,10 @@ class ReservationsTableSeeder extends Seeder
         DB::table('reservations')->insert([
             'customer_id' => $customer_ids[array_rand($customer_ids)],
             'room_id' => $room_ids[array_rand($room_ids)],
-            'reservation_date' => $date->format('Y-m-d H:i:s'),
-            'expiry_date' => $date->addWeeks(rand(1, 52))->format('Y-m-d H:i:s'),
-            'status' => (bool)rand(0,2),
+            'payment_id' => $payment_ids[array_rand($payment_ids)],
+            'from' => $date->format('Y-m-d H:i:s'),
+            'to' => $date->addWeeks(rand(1, 52))->format('Y-m-d H:i:s'),
+            'status' => $status[array_rand($status)],
             'No_of_rooms' => rand(1, 10),
         ]);
     }

@@ -19,14 +19,14 @@ Route::get('/about', function () {
     return 'About';
 });
 
-Route::resource('rooms', 'RoomsController');
+Route::resource('admin/rooms', 'RoomsController');
 
-Route::resource('payments', 'PaymentsController');
+Route::resource('admin/payments', 'PaymentsController');
 
-Route::resource('customers', 'CustomersController');
+Route::resource('admin/customers', 'CustomersController');
 
-Route::resource('reservations', 'ReservationsController');
+Route::resource('admin/reservations', 'ReservationsController')->middleware('auth');;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'AdminController@index')->name('admin.index');

@@ -11,12 +11,12 @@ class PaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $reservation_ids = DB::table('reservations')->pluck('id')->toArray();
-        
+        $methods = ['MoMo', 'Paypal'. 'Cash'];
+
         DB::table('payments')->insert([
-            'reservation_id' => $reservation_ids[array_rand($reservation_ids)],
             'amount' => rand(0,1000),
-            'payment_date' => new DateTime(),
+            'method' => $methods[array_rand($methods)],
+            'date' => new DateTime(),
         ]);
     }
 }

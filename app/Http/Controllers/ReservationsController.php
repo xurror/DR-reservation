@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Reservation;
 
@@ -14,8 +15,16 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::all();
-        return view('reservations.index')->with('reservations', $reservations);
+
+
+
+        $reservations = DB::table('reservations')
+            ->join('customers', 'reservations.id', '=', 'customers.id')
+            ->join('rooms', 'reservations.id', '=', 'rooms.id')
+            ->select('reservations.*', 'customers.*', 'rooms.*')
+            ->get();
+
+        return view('admin.reservations.index', ['reservations'=> $reservations]);
     }
 
     /**
@@ -25,7 +34,18 @@ class ReservationsController extends Controller
      */
     public function create()
     {
-        return view('reservations.create');
+        $customers = DB::table('customers')
+                    ->select('id', 'first_name')
+                    ->get();
+
+        $rooms = DB::table('rooms')
+                ->select('id')
+                ->get();
+
+        return view('admin.reservations.create', ['customers' => $customers,
+                                        'rooms' => $rooms
+                                        ]
+                                    );
     }
 
     /**
@@ -53,7 +73,7 @@ class ReservationsController extends Controller
         $reservation->save();
 
         // return redirect
-        return redirect('/reservations')->with('success', 'reservation made');
+        return redirect('/admin/reservations')->with('success', 'reservation made');
     }
 
     /**
@@ -65,7 +85,7 @@ class ReservationsController extends Controller
     public function show($id)
     {
         $reservation = Reservation::find($id);
-        return view('reservations.show')->with('reservation', $reservation);
+        return view('admin.reservations.show')->with('reservation', $reservation);
     }
 
     /**
@@ -77,7 +97,20 @@ class ReservationsController extends Controller
     public function edit($id)
     {
         $reservation = Reservation::find($id);
-        return view('reservations.edit')->with('reservation', $reservation);
+        $customer = DB::table('customers')
+                    ->select('first_name', 'last_name', 'telephone', 'email')
+                    ->where('id', $reservation->customer_id)
+                    ->get();
+        $customer = $customer[0];
+        $room = DB::table('rooms')
+                ->select('id', 'room_description', 'room_size', 'room_price', 'room_status')
+                ->where('id', $reservation->room_id)
+                ->get();
+        $room = $room[0];
+
+        return view('admin.reservations.edit', ['reservation'=> $reservation,
+                                        'customer' => $customer,
+                                        'room' => $room]);
     }
 
     /**
@@ -106,7 +139,7 @@ class ReservationsController extends Controller
         $reservation->save();
 
         // return redirect
-        return redirect('/reservations')->with('success', 'reservation made');
+        return redirect('/admin/reservations')->with('success', 'reservation made');
     }
 
     /**
@@ -119,6 +152,6 @@ class ReservationsController extends Controller
     {
         $reservation = Reservation::find($id);
         $reservation->delete();
-        return redirect('/reservations')->with('success', 'Reservation deleted');
+        return redirect('/admin/reservations')->with('success', 'Reservation deleted');
     }
 }

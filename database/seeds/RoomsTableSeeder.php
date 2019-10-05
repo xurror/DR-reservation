@@ -11,11 +11,12 @@ class RoomsTableSeeder extends Seeder
      */
     public function run()
     {
+        $status = ['Free', 'Reserved/Unoccupied', 'Reserved/Occupied'];
         DB::table('rooms')->insert([
-            'room_size' => rand(100, 1000),
-            'room_description' => Str::random(100),
-            'room_price' => rand(10, 1000),
-            'room_status' => (bool)rand(0,2),
+            'size' => rand(100, 1000),
+            'description' => Str::random(100),
+            'price' => rand(10, 1000),
+            'status' => $status[array_rand($status)],
         ]);
     }
 }
