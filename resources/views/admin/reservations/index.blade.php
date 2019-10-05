@@ -57,11 +57,11 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Telephone</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Room ID</th>
+                                <th scope="col">package ID</th>
                                 <th scope="col">Reservation Date</th>
                                 <th scope="col">Expiry Date</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">No of Rooms</th>
+                                <th scope="col">No of packages</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -78,11 +78,11 @@
                                     </td>
                                     <td>{{ $reservation->telephone }}</td>
                                     <td>{{ $reservation->email }}</td>
-                                    <th>{{ $reservation->room_id }}</th>
+                                    <th>{{ $reservation->package_id }}</th>
                                     <td>{{ $reservation->reservation_date }}</td>
                                     <td>{{ $reservation->expiry_date }}</td>
                                     <td>{{ $reservation->status }}</td>
-                                    <td>{{ $reservation->No_of_rooms }}</td>
+                                    <td>{{ $reservation->No_of_packages }}</td>
                                     <td>
                                         <a type="button" class="btn btn-outline-primary glyphicon glyphicon-pencil" href="/admin/reservations/{{ $reservation->id }}/edit"></a>
                                         |
@@ -132,11 +132,11 @@
                                                 <p><big><label>Name:</label>&ensp; {{ $reservation->first_name }} {{ $reservation->last_name }}</big></p>
                                             <p><big><label>Telephone:</label>&ensp; {{ $reservation->telephone }}</big></p>
                                             <p><big><label>Email:</label> &ensp; {{ $reservation->email }}</big></p>
-                                            <p><big><label>Room ID:</label>&ensp; {{ $reservation->room_id }}</big></p>
+                                            <p><big><label>package ID:</label>&ensp; {{ $reservation->package_id }}</big></p>
                                             <p><big><label>Reservation Date:</label>&ensp; {{ $reservation->reservation_date }}</big></p>
                                             <p><big><label>Expiry Date:</label>&ensp; {{ $reservation->expiry_date }}</big></p>
                                             <p><big><label>Status:</label>&ensp; {{ $reservation->status }}</big></p>
-                                            <p><big><label>No of room:</label>&ensp; {{ $reservation->No_of_rooms }}</big></p>
+                                            <p><big><label>No of package:</label>&ensp; {{ $reservation->No_of_packages }}</big></p>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="/admin/reservations/{{ $reservation->id }}/edit" class="btn btn-primary">Details</a>

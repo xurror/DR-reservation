@@ -22,8 +22,8 @@
             {!! Form::label('status', 'Status') !!}
             {!! Form::text('status', $reservation->status, ['class' => 'form-control', 'placeholder' => 'Status']) !!}
 
-            {!! Form::label('No_of_rooms', 'No of Rooms') !!}
-            {!! Form::text('No_of_rooms', $reservation->No_of_rooms, ['class' => 'form-control', 'placeholder' => 'No of Rooms']) !!}
+            {!! Form::label('No_of_packages', 'No of packages') !!}
+            {!! Form::text('No_of_packages', $reservation->No_of_packages, ['class' => 'form-control', 'placeholder' => 'No of packages']) !!}
 
         </div>
         {!! Form::hidden('_method', 'PUT') !!}

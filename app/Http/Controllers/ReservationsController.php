@@ -20,8 +20,8 @@ class ReservationsController extends Controller
 
         $reservations = DB::table('reservations')
             ->join('customers', 'reservations.id', '=', 'customers.id')
-            ->join('rooms', 'reservations.id', '=', 'rooms.id')
-            ->select('reservations.*', 'customers.*', 'rooms.*')
+            ->join('packages', 'reservations.id', '=', 'packages.id')
+            ->select('reservations.*', 'customers.*', 'packages.*')
             ->get();
 
         return view('admin.reservations.index', ['reservations'=> $reservations]);
@@ -38,12 +38,12 @@ class ReservationsController extends Controller
                     ->select('id', 'first_name')
                     ->get();
 
-        $rooms = DB::table('rooms')
+        $packages = DB::table('packages')
                 ->select('id')
                 ->get();
 
         return view('admin.reservations.create', ['customers' => $customers,
-                                        'rooms' => $rooms
+                                        'packages' => $packages
                                         ]
                                     );
     }
@@ -61,7 +61,7 @@ class ReservationsController extends Controller
             'reservation_date' => 'required',
             'expiry_date' => 'required',
             'status' => 'required',
-            'No_of_rooms' => 'required',
+            'No_of_packages' => 'required',
         ]);
 
         // Create customer
@@ -69,7 +69,7 @@ class ReservationsController extends Controller
         $reservation->reservation_date = $request->input('reservation_date');
         $reservation->expiry_date = $request->input('expiry_date');
         $reservation->status = $request->input('reservation_status');
-        $reservation->No_of_rooms = $request->input('No_of_rooms');
+        $reservation->No_of_packages = $request->input('No_of_packages');
         $reservation->save();
 
         // return redirect
@@ -102,15 +102,15 @@ class ReservationsController extends Controller
                     ->where('id', $reservation->customer_id)
                     ->get();
         $customer = $customer[0];
-        $room = DB::table('rooms')
-                ->select('id', 'room_description', 'room_size', 'room_price', 'room_status')
-                ->where('id', $reservation->room_id)
+        $package = DB::table('packages')
+                ->select('id', 'package_description', 'package_size', 'package_price', 'package_status')
+                ->where('id', $reservation->package_id)
                 ->get();
-        $room = $room[0];
+        $package = $package[0];
 
         return view('admin.reservations.edit', ['reservation'=> $reservation,
                                         'customer' => $customer,
-                                        'room' => $room]);
+                                        'package' => $package]);
     }
 
     /**
@@ -127,7 +127,7 @@ class ReservationsController extends Controller
             'reservation_date' => 'required',
             'expiry_date' => 'required',
             'status' => 'required',
-            'No_of_rooms' => 'required',
+            'No_of_packages' => 'required',
         ]);
 
         // Create customer
@@ -135,7 +135,7 @@ class ReservationsController extends Controller
         $reservation->reservation_date = $request->input('reservation_date');
         $reservation->expiry_date = $request->input('expiry_date');
         $reservation->status = $request->input('reservation_status');
-        $reservation->No_of_rooms = $request->input('No_of_rooms');
+        $reservation->No_of_packages = $request->input('No_of_packages');
         $reservation->save();
 
         // return redirect

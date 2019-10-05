@@ -3,7 +3,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Rooms</li>
+            <li class="breadcrumb-item active" aria-current="page">Packages</li>
         </ol>
     </nav>
 
@@ -13,14 +13,14 @@
             padding-right: 5px; /* small gap on the right of each header */
         }
     </style>
-    <h3 class="option1">Rooms</h3>
+    <h3 class="option1">Packages</h3>
     <h5 class="option1">
-        <a href="/rooms/create" style="color:green;">
+        <a href="/packages/create" style="color:green;">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </a>
     </h5>
 
-    @if (count($rooms) > 0)
+    @if (count($packages) > 0)
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -33,24 +33,24 @@
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
-                @foreach ($rooms as $room)
+                @foreach ($packages as $package)
                     <tbody>
                         <tr>
-                            <th scope="row">{{ $room->id }}</th>
-                            <td><a href="" data-toggle="modal" data-target="#{{ $room->id }}">
-                                    {{ $room->room_size }}
+                            <th scope="row">{{ $package->id }}</th>
+                            <td><a href="" data-toggle="modal" data-target="#{{ $package->id }}">
+                                    {{ $package->package_size }}
                                 </a>
                             </td>
-                            <td>{{ $room->room_description }}</td>
-                            <td>{{ $room->room_price }}</td>
-                            <td>{{ $room->room_status }}</td>
+                            <td>{{ $package->package_description }}</td>
+                            <td>{{ $package->package_price }}</td>
+                            <td>{{ $package->package_status }}</td>
 
                             <td>
-                                <a href="/rooms/{{ $room->id }}/edit">
+                                <a href="/packages/{{ $package->id }}/edit">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 </a>
-                                &ensp; | &ensp;                            
-                                <a href="/rooms/{{ $room->id }}/edit" style="color:red;">
+                                &ensp; | &ensp;
+                                <a href="/packages/{{ $package->id }}/edit" style="color:red;">
                                     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                 </a>
                             </td>
@@ -61,23 +61,23 @@
 
 
                     <!-- Modal -->
-                    <div class="modal fade" id="{{ $room->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal fade" id="{{ $package->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title" id="exampleModalCenterTitle">{{ $room->room_size }}</h1>
+                                    <h1 class="modal-title" id="exampleModalCenterTitle">{{ $package->package_size }}</h1>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p><big><label>Size:</label>&ensp; {{ $room->room_size }}</big></p>
-                                    <p><big><label>Description:</label>&ensp; {{ $room->room_description }}</big></p>
-                                    <p><big><label>Price:</label>&ensp; {{ $room->room_price }}</big></p>
-                                    <p><big><label>Status:</label>&ensp; {{ $room->room_status }}</big></p>
+                                    <p><big><label>Size:</label>&ensp; {{ $package->package_size }}</big></p>
+                                    <p><big><label>Description:</label>&ensp; {{ $package->package_description }}</big></p>
+                                    <p><big><label>Price:</label>&ensp; {{ $package->package_price }}</big></p>
+                                    <p><big><label>Status:</label>&ensp; {{ $package->package_status }}</big></p>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="/rooms/{{ $room->id }}/edit">
+                                    <a href="/packages/{{ $package->id }}/edit">
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                     </a>
                                     &ensp;
@@ -90,6 +90,6 @@
             </table>
         </div>
     @else
-        <p>No rooms</p>
+        <p>No packages</p>
     @endif
 @endsection

@@ -11,12 +11,14 @@ class PaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        $methods = ['MoMo', 'Paypal'. 'Cash'];
+        $methods = ['MoMo', 'Paypal', 'Cash'];
 
-        DB::table('payments')->insert([
-            'amount' => rand(0,1000),
-            'method' => $methods[array_rand($methods)],
-            'date' => new DateTime(),
-        ]);
+        for ($i = 0; $i <= 20; $i++) {
+            DB::table('payments')->insert([
+                'amount' => rand(0, 1000),
+                'method' => $methods[array_rand($methods)],
+                'date' => new DateTime(),
+            ]);
+        }
     }
 }

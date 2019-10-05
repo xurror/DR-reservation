@@ -257,20 +257,22 @@ class CustomersTableSeeder extends Seeder
 
         );
 
-        DB::table('customers')->insert([
-            'first_name' => Str::random(10),
-            'last_name' => Str::random(10),
-            'SSN' => Str::random(10),
-            'age' => rand(5, 40),
-            'date_of_birth' => new DateTime(),
-            'occupation' => Str::random(10),
-            'address_line_1' => str::random(10),
-            'address_line_2' => str::random(10),
-            'city' => str::random(10),
-            'postal_code' => rand(100, 1000),
-            'country_code' => array_rand($seedcountrycodes),
-            'telephone' => rand(1000000, 10000000),
-            'email' => Str::random(10).'@gmail.com',
-        ]);
+        for ($i = 0; $i <= 20; $i++) {
+            DB::table('customers')->insert([
+                'first_name' => Str::random(10),
+                'last_name' => Str::random(10),
+                'SSN' => Str::random(10),
+                'age' => rand(5, 40),
+                'date_of_birth' => new DateTime(),
+                'occupation' => Str::random(10),
+                'address_line_1' => str::random(10),
+                'address_line_2' => str::random(10),
+                'city' => str::random(10),
+                'postal_code' => rand(100, 1000),
+                'country_code' => array_rand($seedcountrycodes),
+                'telephone' => rand(1000000, 10000000),
+                'email' => Str::random(10).'@gmail.com',
+            ]);
+        }
     }
 }
