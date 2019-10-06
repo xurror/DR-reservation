@@ -1,34 +1,152 @@
 @extends('layouts.app')
 
 @section('content')
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-            <li class="breadcrumb-item"><a href="/admin/reservations">reservations</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{$reservation->reservation_date}}</li>
-        </ol>
-    </nav>
+
+    <div class="container">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/admin/reservations">reservations</a></li>
+                <li class="breadcrumb-item active" aria-current="page">edit reservation</li>
+            </ol>
+        </nav>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="pull-left">Add Reservation</h5>
+                        <h5 class="pull-right">{{ $reservation->id }}</h5>
+                    </div>
+
+                    <div class="card-body justify-content-center">
+                        <form method="POST" action="/admin/reservations">
+                            <div class="form-group row">
+                                <label for="customer_id" class="col-md-4 col-form-label text-md-right">{{ __('Customer ID') }}</label>
+
+                                <div class="col-md-4 input-group-lg">
+                                    <select id="customer_id" class="custom-select @error('customer_id') is-invalid @enderror" name="customer_id" required autocomplete="customer_id">
+                                        <option selected>{{ $customer->first_name }} {{ $customer->last_name }}</option>
+                                        @foreach ($customers as $customer)
+                                            <option value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('customer_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="package_id" class="col-md-4 col-form-label text-md-right">{{ __('Package ID') }}</label>
+
+                                <div class="col-auto input-group-lg">
+                                    <select id="package_id" class="custom-select @error('package_id') is-invalid @enderror" name="package_id" required autocomplete="package_id">
+                                        <option selected>{{ $package->id }}</option>
+                                        @foreach ($packages as $package)
+                                            <option value="{{ $package->id }}">{{ $package->id }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('package_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                    <label for="payment_id" class="col-md-4 col-form-label text-md-right">{{ __('Payment ID') }}</label>
+
+                                    <div class="col-auto input-group-lg">
+                                        <select id="payment_id" class="custom-select @error('payment_id') is-invalid @enderror" name="payment_id" required autocomplete="payment_id">
+                                            <option selected>{{ $payment->id }}</option>
+                                            @foreach ($payments as $payment)
+                                                <option value="{{ $payment->id }}">{{ $payment->id }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('payment_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                            <div class="form-group row">
+                                <label for="from" class="col-md-4 col-form-label text-md-right">{{ __('From') }}</label>
+
+                                <div class="col-3">
+                                    <input id="from" value="{{ $reservation->from }}" type="date" class="form-control @error('from') is-invalid @enderror" name="from" value="{{ old('from') }}" required autocomplete="from" autofocus>
+
+                                    @error('from')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="to" class="col-md-4 col-form-label text-md-right">{{ __('To') }}</label>
+
+                                <div class="col-3">
+                                    <input id="to" value="{{ $reservation->to }}" type="date" class="form-control @error('to') is-invalid @enderror" name="to" value="{{ old('to') }}" required autocomplete="to">
+
+                                    @error('to')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
 
-    {!! Form::open(['action' => ['ReservationsController@update', $reservation->id], 'method' => 'POST']) !!}
-        <div class="form-group">
+                            <div class="form-group row">
+                                <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('status') }}</label>
 
-            {!! Form::label('reservation_date', 'Reservation Date') !!}
-            {!! Form::text('reservation_date', $reservation->reservation_date, ['class' => 'form-control', 'placeholder' => 'Reservation Date']) !!}
+                                <div class="col-auto input-group-lg">
+                                    <select id="status" class="custom-select @error('status') is-invalid @enderror" name="status" required autocomplete="status">
+                                        <option selected>{{ $reservation->status }}</option>
+                                        <option value="1">Reserved/Paid</option>
+                                        <option value="2">Reserved/Partially Paid</option>
+                                        <option value="3">Reserved/Unpaid</option>
+                                    </select>
+                                    @error('status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
-            {!! Form::label('expiry_date', 'Expiry Date') !!}
-            {!! Form::text('expiry_date', $reservation->expiry_date, ['class' => 'form-control', 'placeholder' => 'Expiry Date']) !!}
+                            <div class="form-group row">
+                                <label for="No_of_packages" class="col-md-4 col-form-label text-md-right">{{ __('No of Packages') }}</label>
 
-            {!! Form::label('status', 'Status') !!}
-            {!! Form::text('status', $reservation->status, ['class' => 'form-control', 'placeholder' => 'Status']) !!}
+                                <div class="col-2">
+                                    <input id="No_of_packages" value="{{ $reservation->No_of_packages }}" type="number" class="form-control @error('No_of_packages') is-invalid @enderror" name="No_of_packages" required autocomplete="No_of_packages">
 
-            {!! Form::label('No_of_packages', 'No of packages') !!}
-            {!! Form::text('No_of_packages', $reservation->No_of_packages, ['class' => 'form-control', 'placeholder' => 'No of packages']) !!}
+                                    @error('No_of_packages')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
 
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Add') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        {!! Form::hidden('_method', 'PUT') !!}
-        {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-    {!! Form::close() !!}
-
+    </div>
 
 @endsection

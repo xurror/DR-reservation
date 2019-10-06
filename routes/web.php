@@ -19,7 +19,7 @@ Route::get('/about', function () {
     return 'About';
 });
 
-Route::resource('admin/rooms', 'RoomsController');
+Route::resource('admin/rooms', 'PackagesController');
 
 Route::resource('admin/payments', 'PaymentsController');
 

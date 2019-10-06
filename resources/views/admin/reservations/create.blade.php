@@ -9,8 +9,8 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/reservations">reservations</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Add reservation</li>
+                    <li class="breadcrumb-item"><a href="/admin/reservations">reservations</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">add reservation</li>
                 </ol>
             </nav>
             <div class="row justify-content-center">
@@ -19,20 +19,20 @@
                         <div class="card-header">Add Reservation</div>
 
                         <div class="card-body justify-content-center">
-                            <form method="POST" action="/admin/reservation">
+                            <form method="POST" action="/admin/reservations">
                                 @csrf
 
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('name') }}</label>
+                                    <label for="customer_id" class="col-md-4 col-form-label text-md-right">{{ __('Customer ID') }}</label>
 
-                                    <div class="col-md-6 input-group-lg">
-                                        <select id="name" class="custom-select @error('name') is-invalid @enderror" name="name" required autocomplete="name">
-                                            <option selected>Choose...</option>
+                                    <div class="col-md-4 input-group-lg">
+                                        <select id="customer_id" class="custom-select @error('customer_id') is-invalid @enderror" name="customer_id" required autocomplete="customer_id">
+                                            <option selected></option>
                                             @foreach ($customers as $customer)
                                                 <option value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
                                             @endforeach
                                         </select>
-                                        @error('name')
+                                        @error('customer_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -41,22 +41,40 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('status') }}</label>
+                                    <label for="package_id" class="col-md-4 col-form-label text-md-right">{{ __('Package ID') }}</label>
 
                                     <div class="col-auto input-group-lg">
-                                        <select id="status" class="custom-select @error('status') is-invalid @enderror" name="status" required autocomplete="status">
-                                            <option selected>Choose...</option>
-                                            @foreach ($reservations as $reservation)
-                                                <option value="{{ $reservation->id }}">{{ $reservation->status }}</option>
+                                        <select id="package_id" class="custom-select @error('package_id') is-invalid @enderror" name="package_id" required autocomplete="package_id">
+                                            <option selected></option>
+                                            @foreach ($packages as $package)
+                                                <option value="{{ $package->id }}">{{ $package->id }}</option>
                                             @endforeach
                                         </select>
-                                        @error('status')
+                                        @error('package_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                        <label for="payment_id" class="col-md-4 col-form-label text-md-right">{{ __('Payment ID') }}</label>
+
+                                        <div class="col-auto input-group-lg">
+                                            <select id="payment_id" class="custom-select @error('payment_id') is-invalid @enderror" name="payment_id" required autocomplete="payment_id">
+                                                <option selected></option>
+                                                @foreach ($payments as $payment)
+                                                    <option value="{{ $payment->id }}">{{ $payment->id }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('payment_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
 
                                 <div class="form-group row">
                                     <label for="from" class="col-md-4 col-form-label text-md-right">{{ __('From') }}</label>
@@ -86,15 +104,16 @@
                                     </div>
                                 </div>
 
+
                                 <div class="form-group row">
                                     <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('status') }}</label>
 
                                     <div class="col-auto input-group-lg">
                                         <select id="status" class="custom-select @error('status') is-invalid @enderror" name="status" required autocomplete="status">
-                                            <option selected>Choose...</option>
-                                            <option value="1">Paid</option>
-                                            <option value="2">Reserved</option>
-                                            <option value="3">Three</option>
+                                            <option selected></option>
+                                            <option value="1">Reserved/Paid</option>
+                                            <option value="2">Reserved/Partially Paid</option>
+                                            <option value="3">Reserved/Unpaid</option>
                                         </select>
                                         @error('status')
                                             <span class="invalid-feedback" role="alert">
@@ -108,7 +127,7 @@
                                     <label for="No_of_packages" class="col-md-4 col-form-label text-md-right">{{ __('No of Packages') }}</label>
 
                                     <div class="col-2">
-                                        <input id="No_of_packages" type="number" class="form-control mr-sm-2" name="No_of_packages" required autocomplete="No_of_packages">
+                                        <input id="No_of_packages" type="number" class="form-control @error('No_of_packages') is-invalid @enderror" name="No_of_packages" required autocomplete="No_of_packages">
 
                                         @error('No_of_packages')
                                             <span class="invalid-feedback" role="alert">
