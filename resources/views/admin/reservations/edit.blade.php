@@ -14,7 +14,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="pull-left">Add Reservation</h5>
+                        <h5 class="pull-left">Edit Reservation</h5>
                         <h5 class="pull-right">{{ $reservation->id }}</h5>
                     </div>
 
