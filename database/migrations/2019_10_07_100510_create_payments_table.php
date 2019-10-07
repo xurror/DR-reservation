@@ -17,6 +17,9 @@ class CreatePaymentsTable extends Migration
             $table->increments('id');
             $table->string('amount', 100)->nullable(false);
             $table->string('method', 100);
+            $table->unsignedInteger('reservation_id')->nullable(false);
+            $table->foreign('reservation_id')->references('id')->on('reservations')
+            ->onUpdate('cascade');
             $table->timestamp('date')->nullable(false);
             $table->timestamps();
         });

@@ -257,7 +257,7 @@ class CustomersTableSeeder extends Seeder
 
         );
 
-        for ($i = 0; $i <= 20; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             DB::table('customers')->insert([
                 'first_name' => Str::random(10),
                 'last_name' => Str::random(10),

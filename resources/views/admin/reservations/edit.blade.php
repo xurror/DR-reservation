@@ -19,13 +19,15 @@
                     </div>
 
                     <div class="card-body justify-content-center">
-                        <form method="POST" action="/admin/reservations">
+                        <form method="POST" action="/admin/reservations/{{ $reservation->id }}">
+                            {{ csrf_field() }}
+                            {{ method_field('PUT') }}
                             <div class="form-group row">
                                 <label for="customer_id" class="col-md-4 col-form-label text-md-right">{{ __('Customer ID') }}</label>
 
                                 <div class="col-md-4 input-group-lg">
                                     <select id="customer_id" class="custom-select @error('customer_id') is-invalid @enderror" name="customer_id" required autocomplete="customer_id">
-                                        <option selected>{{ $customer->first_name }} {{ $customer->last_name }}</option>
+                                    <option selected value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
                                         @foreach ($customers as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
                                         @endforeach
@@ -55,24 +57,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                    <label for="payment_id" class="col-md-4 col-form-label text-md-right">{{ __('Payment ID') }}</label>
-
-                                    <div class="col-auto input-group-lg">
-                                        <select id="payment_id" class="custom-select @error('payment_id') is-invalid @enderror" name="payment_id" required autocomplete="payment_id">
-                                            <option selected>{{ $payment->id }}</option>
-                                            @foreach ($payments as $payment)
-                                                <option value="{{ $payment->id }}">{{ $payment->id }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('payment_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
 
                             <div class="form-group row">
                                 <label for="from" class="col-md-4 col-form-label text-md-right">{{ __('From') }}</label>
@@ -109,9 +93,9 @@
                                 <div class="col-auto input-group-lg">
                                     <select id="status" class="custom-select @error('status') is-invalid @enderror" name="status" required autocomplete="status">
                                         <option selected>{{ $reservation->status }}</option>
-                                        <option value="1">Reserved/Paid</option>
-                                        <option value="2">Reserved/Partially Paid</option>
-                                        <option value="3">Reserved/Unpaid</option>
+                                        <option value="Reserved/Paid">Reserved/Paid</option>
+                                        <option value="Reserved/Partially Paid">Reserved/Partially Paid</option>
+                                        <option value="Reserved/Unpaid">Reserved/Unpaid</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback" role="alert">
@@ -138,7 +122,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Add') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>

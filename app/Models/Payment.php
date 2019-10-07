@@ -12,6 +12,6 @@ class Payment extends Model
     // relations
     public function reservation()
     {
-        return $this->belongsTo('App\Models\Reservation');
+        return $this->belongsTo('App\Models\Reservation', 'reservation_id');
     }
 }

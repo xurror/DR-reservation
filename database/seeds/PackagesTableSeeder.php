@@ -11,7 +11,7 @@ class PackagesTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i <= 20; $i++){
+        for ($i = 1; $i <= 20; $i++){
             $status = ['Free', 'Reserved/Unoccupied', 'Reserved/Occupied'];
             DB::table('packages')->insert([
                 'size' => rand(100, 1000),

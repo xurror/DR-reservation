@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-auto msb" id="msb">
+    <div class="col-auto msb bg-dark" id="msb">
         <div class="container-fluid">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <div class="navbar-header">
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="col-9 py-5">
+    <div class="col-9">
         <div class="container">
             <div class="card">
                 <div class="card-header">
@@ -44,11 +44,10 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Name</th>
+                                        <th scope="col">Customer ID</th>
                                         <th scope="col">PKG ID</th>
                                         <th scope="col">From</th>
                                         <th scope="col">To</th>
-                                        <th scope="col">Pmt Mthd</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">No of PKGs</th>
                                         <th scope="col">Actions</th>
@@ -61,14 +60,13 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row">{{ $reservation->id }}</th>
-                                            <td><a href="" data-toggle="modal" data-target="#{{ $reservation->first_name }}">
-                                                    {{ $reservation->first_name }} {{ $reservation->last_name }}
+                                            <td><a href="" data-toggle="modal" data-target="#{{ $reservation->customer_id }}">
+                                                    {{ $reservation->customer_id }}
                                                 </a>
                                             </td>
                                             <th>{{ $reservation->package_id }}</th>
                                             <td>{{ $reservation->from }}</td>
                                             <td>{{ $reservation->to }}</td>
-                                            <td>{{ $reservation->method }}</td>
                                             <td>{{ $reservation->status }}</td>
                                             <td>{{ $reservation->No_of_packages }}</td>
                                             <td>
@@ -107,7 +105,7 @@
                                 </form>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="{{ $reservation->first_name }}" tabindex="-1" role="dialog" aria-labelledby="{{ $reservation->id }}Title" aria-hidden="true">
+                                    <div class="modal fade" id="{{ $reservation->customer_id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $reservation->id }}Title" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="card-header">
@@ -117,13 +115,10 @@
                                                     <h4 class="modal-title" id="{{ $reservation->id }}Title">{{ $reservation->id }}</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                        <p><big><label>Name:</label>&ensp; {{ $reservation->first_name }} {{ $reservation->last_name }}</big></p>
-                                                    <p><big><label>Telephone:</label>&ensp; {{ $reservation->telephone }}</big></p>
-                                                    <p><big><label>Email:</label> &ensp; {{ $reservation->email }}</big></p>
+                                                        <p><big><label>Customer ID:</label>&ensp; {{ $reservation->customer_id }}</big></p>
                                                     <p><big><label>package ID:</label>&ensp; {{ $reservation->package_id }}</big></p>
                                                     <p><big><label>From:</label>&ensp; {{ $reservation->from }}</big></p>
                                                     <p><big><label>To:</label>&ensp; {{ $reservation->to }}</big></p>
-                                                    <p><big><label>Payment Method:</label>&ensp; {{ $reservation->method }}</big></p>
                                                     <p><big><label>Status:</label>&ensp; {{ $reservation->status }}</big></p>
                                                     <p><big><label>No of PKGs:</label>&ensp; {{ $reservation->No_of_packages }}</big></p>
                                                 </div>
@@ -137,6 +132,7 @@
                                     </div>
                                 @endforeach
                             </table>
+                            {{ $reservations->links() }}
                         </div>
                     @else
                         <p>No Reservations</p>

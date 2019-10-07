@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class Package extends Model
 {
     // table
-    protected $table = 'rooms';
+    protected $table = 'packages';
 
     // Relations
     public function reservation()

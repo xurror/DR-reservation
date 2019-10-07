@@ -22,6 +22,6 @@ class Reservation extends Model
 
     public function payment()
     {
-        return $this->hasMany('App\Models\Payment');
+        return $this->hasOne('App\Models\Payment');
     }
 }

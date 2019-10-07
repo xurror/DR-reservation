@@ -17,7 +17,6 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('customer_id')->nullable(false);
             $table->unsignedInteger('package_id')->nullable(false);
-            $table->unsignedInteger('payment_id')->nullable(false);
             $table->date('from')->nullable();
             $table->date('to')->nullable();
             $table->string('status', 100);
@@ -25,8 +24,6 @@ class CreateReservationsTable extends Migration
             $table->foreign('customer_id')->references('id')->on('customers')
             ->onUpdate('cascade');
             $table->foreign('package_id')->references('id')->on('packages')
-            ->onUpdate('cascade');
-            $table->foreign('payment_id')->references('id')->on('payments')
             ->onUpdate('cascade');
             $table->timestamps();
         });
