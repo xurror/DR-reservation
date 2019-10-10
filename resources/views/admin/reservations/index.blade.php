@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-header">
                     {{ __('Reservations') }}
-                    <a href="/admin/reservations/create" type="button" class="btn btn-outline-success glyphicon glyphicon-plus"></a>
+                    <a href="/admin/reservations/create" class="btn btn-outline-success glyphicon glyphicon-plus"></a>
                 </div>
 
 
@@ -49,8 +49,8 @@
                                         <th scope="col">From</th>
                                         <th scope="col">To</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">No of PKGs</th>
-                                        <th scope="col">Actions</th>
+                                        <th scope="col"  style="width:  10%">No of PKGs</th>
+                                        <th scope="col"  style="width:  10%">Actions</th>
                                     </tr>
                                 </thead>
                                 @foreach ($reservations as $reservation)
@@ -68,9 +68,9 @@
                                             <td>{{ $reservation->from }}</td>
                                             <td>{{ $reservation->to }}</td>
                                             <td>{{ $reservation->status }}</td>
-                                            <td>{{ $reservation->No_of_packages }}</td>
-                                            <td>
-                                                <a type="button" class="btn btn-outline-primary glyphicon glyphicon-pencil" href="/admin/reservations/{{ $reservation->id }}/edit"></a>
+                                            <td  style="width:  10%">{{ $reservation->No_of_packages }}</td>
+                                            <td  style="width:  10%">
+                                                <a class="btn btn-outline-primary glyphicon glyphicon-pencil" href="/admin/reservations/{{ $reservation->id }}/edit"></a>
                                                 |
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-outline-danger glyphicon glyphicon-trash" data-toggle="modal" data-target="#{{ $reservation->id }}"></button>

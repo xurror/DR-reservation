@@ -269,7 +269,7 @@ class CustomersController extends Controller
         // return DB::select('SELECT * FROM customer');
         $customers = DB::table('customers')
                         ->select('customers.*')
-                        ->paginate(6);
+                        ->paginate(10);
         return view('admin.customers.index')->with('customers', $customers);
     }
 

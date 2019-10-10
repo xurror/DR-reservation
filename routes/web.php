@@ -30,3 +30,7 @@ Route::resource('admin/reservations', 'ReservationsController')->middleware('aut
 Auth::routes();
 
 Route::get('/admin', 'AdminController@index')->name('admin.index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
