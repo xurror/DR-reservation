@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="author" content="">
     
@@ -31,20 +32,22 @@
         
         .sidebar {
             position: fixed;
+            display: block;
             top: 0;
             bottom: 0;
             left: 0;
-            z-index: -100; /* Behind the navbar */
-            padding: 0;
+            z-index: 100; /* Behind the navbar */
+            padding: 100;
             box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
         }
         
         .sidebar-sticky {
+            display: block;
             position: -webkit-sticky;
             position: sticky;
             top: 200px; /* Height of navbar */
             height: calc(100vh - 48px);
-            padding-top: .5rem;
+            padding-top: 5.5rem;
             overflow-x: hidden;
             overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
         }
@@ -89,18 +92,11 @@
             border-color: transparent;
             box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
         }
-        
-        /*
-        * Utilities
-        */
-        
-        .border-top { border-top: 1px solid #e5e5e5; }
-        .border-bottom { border-bottom: 1px solid #e5e5e5; }
     </style>
 
 </head>
 <body>
-    <nav class="navbar navbar-dark navbar-expand-md sticky-top position-sticky bg-dark flex-md-nowrap p-0">        
+    <nav class="navbar navbar-dark navbar-expand-lg sticky-top position-sticky bg-dark flex-md-nowrap p-0">        
         <a class="px-5 navbar-brand col-sm-3 col-md-2 mr-0" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>                         
 
         <!-- Right Side Of Navbar -->
@@ -147,7 +143,7 @@
                     ...
                 @endif
             @else
-                <nav class="col-md-2 bg-white sidebar">
+                <nav class="col-md-2 d-none d-md-block bg-white sidebar">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
@@ -207,8 +203,8 @@
                     </div>
                 </nav>
             @endguest
-
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                @include('inc.messages')
                 @yield('content')
             </main>
         </div>

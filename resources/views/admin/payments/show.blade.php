@@ -2,8 +2,10 @@
 
 @section('content')
 
-<div class="container">
-    <div class="container">
+    <div class="container">            
+        
+        <form id="formpaypal" class="needs-validation"></form>
+        <form id="formmomo"></form>
 
         <div class="row">
             <div class="col-md-4 order-md-2 mb-4">
@@ -17,7 +19,7 @@
                             <h6 class="my-0">{{ $package->id }} / Name</h6>
                             <small class="text-muted">{{ substr($package->description, 0, 25) }} ...</small>
                         </div>
-                        <span class="text-muted">${{ $package->price }}</span>
+                        <input type="number" class="form-control mx-sm-5" name="price" id="price" form="formpaypal" placeholder="" value="{{ $package->price }}" readonly>
                     </li>
                     
                     <!--- Iterate to Add More contents -->
@@ -33,8 +35,8 @@
                     </li>
                     -->
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (USD)</span>
-                        <strong>${{ $package->price * $payment->No_of_packages }}</strong>
+                        <span class="mx-sm-3">Total (USD)</span>
+                        <input type="number" class="form-control mx-sm-5" name="amount" id="amount" form="formpaypal" placeholder="" value="{{ $package->price * $payment->No_of_packages }}" readonly>
                     </li>
                 </ul>
                 <!--
@@ -49,317 +51,239 @@
                 -->
 
             </div>
-
             
             <div class="col-md-8 order-md-1">
+
                 <h4 class="mb-3">Billing address</h4>
-                <form class="needs-validation" novalidate>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName">First name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="{{ $customer->first_name }}" required>
-                            <div class="invalid-feedback">
-                                Valid first name is required.
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lastName">Last name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" value="{{ $customer->last_name }}" required>
-                            <div class="invalid-feedback">
-                                Valid last name is required.
-                            </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">First name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" form="formpaypal" value="{{ $customer->first_name }}" required>
+                        <div class="invalid-feedback">
+                            Valid first name is required.
                         </div>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Last name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" form="formpaypal" value="{{ $customer->last_name }}" required>
+                        <div class="invalid-feedback">
+                            Valid last name is required.
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-5 input-group-lg">
-                            <label for="SSN">Social Security Number</label>
-                            <input type="text" class="form-control" id="SSN" placeholder="Social Security Number" value="{{ $customer->SSN }}">
-                            <div class="invalid-feedback">
-                                Please provide a valid social security number.
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="age">Age</label>
-                            <input type="number" class="form-control" id="age" placeholder="Age" value="{{ $customer->age }}">
-                            <div class="invalid-feedback">
-                                Please provide a valid state.
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="date_of_birth">Date of Birth</label>
-                            <input type="date" class="form-control" id="date_of_birth" placeholder="Date of Bith" required value="{{ $customer->date_of_birth }}">
-                            <div class="invalid-feedback">
-                                Please provide a valid Date of Birth.
-                            </div>
+                <div class="row">
+                    <div class="col-md-5 input-group-lg">
+                        <label for="SSN">Social Security Number</label>
+                        <input type="text" class="form-control" id="SSN" name="SSN" form="formpaypal" value="{{ $customer->SSN }}">
+                        <div class="invalid-feedback">
+                            Please provide a valid social security number.
                         </div>
                     </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" form="formpaypal" value="{{ $customer->age }}">
+                        <div class="invalid-feedback">
+                            Please provide a valid state.
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="date_of_birth">Date of Birth</label>
+                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" form="formpaypal" required value="{{ $customer->date_of_birth }}">
+                        <div class="invalid-feedback">
+                            Please provide a valid Date of Birth.
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="telephone">Telephone</label>
-                            <input type="tel" class="form-control" id="telephone" placeholder="Telephone" value="{{ $customer->telephone }}">
-                            <div class="invalid-feedback">
-                                Please provide a valid telephone number.
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com" value="{{ $customer->email }}">
-                            <div class="invalid-feedback">
-                                Please enter a valid email address for billing updates.
-                            </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="telephone">Telephone</label>
+                        <input type="tel" class="form-control" name="telephone" id="telephone" form="formpaypal" value="{{ $customer->telephone }}">                            
+                        <div class="invalid-feedback">
+                            Please provide a valid telephone number.
                         </div>
                     </div>
-                            
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label for="occupation">Occupation</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" value="{{ $customer->occupation }}" required>
-                            <div class="invalid-feedback">
-                                Please enter your Occupation.
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="address">Address</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" value="{{ $customer->address_line_1 }}" required>
-                            <div class="invalid-feedback">
-                                Please enter your shipping address.
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" value="{{ $customer->address_line_2 }}">
+                    <div class="col-md-6 mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" form="formpaypal" value="{{ $customer->email }}">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for billing updates.
                         </div>
                     </div>
-        
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label for="state">City/State</label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" value="{{ $customer->address_line_2 }}">
-                            <div class="invalid-feedback">
-                                Please provide a valid state.
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="zip">Postal Code/Zip</label>
-                            <input type="text" class="form-control" id="zip" placeholder="" value="{{ $customer->postal_code }}" required>
-                            <div class="invalid-feedback">
-                                Zip code required.
-                            </div>
-                        </div>
-                        <div class="col-md-5 input-group-lg">
-                            <label for="country">Country Code</label>
-                            <select class="custom-select d-block w-100" id="country" required>
-                                <option disable-selected>{{ $customer->country_code }}</option>
-                                @foreach ($countryCodes as $code => $country)
-                                    <option value="{{ $code }}">{{ $country }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a valid country.
-                            </div>
+                </div>
+                        
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" class="form-control" id="occupation" name="occupation" form="formpaypal" value="{{ $customer->occupation }}" required>
+                        <div class="invalid-feedback">
+                            Please enter your Occupation.
                         </div>
                     </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" form="formpaypal" value="{{ $customer->address_line_1 }}" required>
+                        <div class="invalid-feedback">
+                            Please enter your shipping address.
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                        <input type="text" class="form-control" id="address2" name="address2" form="formpaypal" placeholder="Apartment or suite" value="{{ $customer->address_line_2 }}">
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="city">City/State</label>
+                        <input type="text" class="form-control" id="city" name="city" form="formpaypal" value="{{ $customer->city }}">
+                        <div class="invalid-feedback">
+                            Please provide a valid city.
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="zip">Postal Code/Zip</label>
+                        <input type="tel" class="form-control" id="postalCode" name="postalCode" form="formpaypal" value="{{ $customer->postal_code }}" required>
+                        <div class="invalid-feedback">
+                            Zip code required.
+                        </div>
+                    </div>
+                    <div class="col-md-5 input-group-lg">
+                        <label for="country">Country Code</label>
+                        <select class="custom-select d-block w-100" id="countryCode" name="countryCode" form="formpaypal" required>
+                            <option disable-selected>{{ $customer->country_code }}</option>
+                            @foreach ($countryCodes as $code => $country)
+                                <option value="{{ $code }}">{{ $country }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a valid country.
+                        </div>
+                    </div>
+                </div>
 
-                    <hr class="mb-4">
-        
-                    <h4 class="mb-3">Invoice</h4>
-        
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <a href="" class="btn btn-primary">
-                                <i class="fab fa-paypal"></i>
-                                PayPal
-                            </a>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <a href="" class="btn btn-primary">
-                                <i class="fas fa-money-bill-wave"></i>
-                                MoMO
-                            </a>
+                <hr class="mb-4">
+    
+                <h4 class="mb-3">Invoice</h4>
+    
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <button class="btn btn-primary fab fa-paypal" id="paypalbutton" form="formpaypal" >
+                            PayPal
+                        </button>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input type="hidden" name="idbouton" value="2" autocomplete="off" form="formmomo">
+                        <input type="hidden" name="typebouton" value="PAIE" autocomplete="off" form="formmomo">
+                        <input class="momo mount" type="hidden" placeholder="" name="_amount" id="momoAmount" value="0" id="montant" autocomplete="off" form="formmomo">
+                        <input class="momo host" type="hidden" placeholder="" name="_tel" id="momoTelephone" value="652741226" autocomplete="off" form="formmomo">
+                        <input class="momo pwd" placeholder="" name="_clP" value="" autocomplete="off" type="hidden" form="formmomo">
+                        <input type="hidden" name="_email" value="kaze.nasser@outlook.com" autocomplete="off" form="formmomo">
+                        <button id="momobutton" name="submit" class="btn bg-warning fas fa-money-bill-wave" type="submit" form="formmomo">
+                            MoMo
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="cc-expiration">Expiration</label>
+                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                        <div class="invalid-feedback">
+                            Expiration date required
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3 mb-3">
-                            <label for="cc-expiration">Expiration</label>
-                            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                            <div class="invalid-feedback">
-                                Expiration date required
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="cc-expiration">CVV</label>
-                            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                            <div class="invalid-feedback">
-                                Security code required
-                            </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="cc-expiration">CVV</label>
+                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                        <div class="invalid-feedback">
+                            Security code required
                         </div>
                     </div>
-                    <hr class="mb-4">
-                    
-                </form>
+                </div>
+                
+                <hr class="mb-4">
+
             </div>
         </div>
     </div>
-              
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function() {
 
+        $('#formmomo').submit( function ( event ) {
+            var input_telephone = $('#telephone').val();
+            $('#momoTelephone').val(input_telephone);
+            alert(input_telephone);
+            if (input_telephone.length != 9){
+                setTimeout(function(){
+                    $('#alert-danger').fadeToggle("slow");
+                }, 2500);
+                $('#alert-danger').fadeToggle("slow");
+            } 
+            else {
+                var input_amount = $('#amount').val();
+                $('#momoAmount').val(input_amount);
+                alert(input_amount);
+                $.ajax({
+                    type: "GET",
+                    url: "https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/transactionRequest.xhtml",
+                    data: $(this).serializeFormJSON(),
+                    success: function() {
+                        setTimeout(function(){
+                            $('#alert-success').fadeToggle("slow");
+                        }, 2500);
+                        $('#alert-success').fadeToggle("slow");
+                    },
+                    error: function() {
+                        setTimeout(function(){
+                            $('#alert-danger').fadeToggle("slow");
+                        }, 2500);
+                        $('#alert-danger').fadeToggle("slow");     
+                    },
+                    complete: function() {
+                        setTimeout(function(){
+                            $('#alert-info').fadeToggle("slow");
+                        }, 2500);
+                        $('#alert-info').fadeToggle("slow");
+                    }
+                });
+            }
+            event.preventDefault();
+        });
 
-
-
-
-
+        $('#formpaypal').submit( function ( event ) {
+            var formdata = $(this).serializeFormJSON();
+            console.log(typeof $(this).serializeFormJSON());
+            $.ajax({
+                type: "POST",
+                url: "/api/paypal-invoice",
+                data: formdata,
+                success: function() {
+                    setTimeout(function(){
+                        $('#alert-success').fadeToggle("slow");
+                    }, 2500);
+                    $('#alert-success').fadeToggle("slow");
+                },
+                error: function() {
+                    setTimeout(function(){
+                        $('#alert-danger').fadeToggle("slow");
+                    }, 2500);
+                    $('#alert-danger').fadeToggle("slow");     
+                },
+                complete: function() {
+                    setTimeout(function(){
+                        $('#alert-info').fadeToggle("slow");
+                    }, 2500);
+                    $('#alert-info').fadeToggle("slow");
+                }
+            });
+            event.preventDefault();
+        });
+    });
+    </script>
+            
     
-
-    <div class="row">
-
-            <div class="card-body">
-
-                <h5 class="card-header">payment id: </h5>
-                <div class="col-sm-7">
-                    <h5 class="card-title">payment details:</h5>
-                    <h5>Customer info:</h5>
-                    <div class="row">
-                        <div class="col">First Name: {{ $customer->first_name }} </div>
-                        <div class="col">Last Name: {{ $customer->last_name }}</div>
-
-                        <div class="w-100"></div>
-                        <div class="col">Tel: {{ $customer->telephone }} </div>
-                        <div class="col"> Email: {{ $customer->email }} </div>
-                    </div>
-                    <br>
-                    <h5>Listing info:</h5>
-                    <div class="row">
-                        <div class="col">Price: {{ $package->price }}</div>
-                        <div class="col">Status:
-                            @if ($package->status = 1)
-                                Occupied
-                            @else
-                                Free
-                            @endif
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col">
-                            For: {{ date_diff(date_create($payment->from), date_create($payment->to))->format("%a days") }}
-                        </div>
-                        <div class="col"> From: {{ $payment->from }} </div>
-                            <div class="col"> To: {{ $payment->to }} </div>
-                    </div>
-
-                    <h6 class="hidden-sm-down">Shrink page width to see sidebar collapse</h6>
-                    <p>{{ $package->description }}</p>
-
-                </div>
-                
-                <div class="col-sm-5">
-                        <div class="card">
-                        <div class="card-body">
-
-                            @if ( $payment->method == 'MoMo')
-                                <form id="formmomo" method="GET" action="https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/transactionRequest.xhtml" target="_top">
-                                    <input name="idbouton" value="2" autocomplete="off" type="hidden">
-                                    <input name="typebouton" value="PAIE" autocomplete="off" type="hidden">
-                                    <input class="momo mount" placeholder="" name="_amount" value="1" id="montant" autocomplete="off" type="hidden">
-                                    <input class="momo host" placeholder="" name="_tel" value="652741226" autocomplete="off" type="hidden">
-                                    <input class="momo pwd" placeholder="" name="_clP" value="" autocomplete="off" type="hidden">
-                                    <input name="_email" value="kaze.nasser@outlook.com" autocomplete="off" type="hidden">
-                                    <input id="Button_Image" src="https://developer.mtn.cm/OnlineMomoWeb/console/uses/itg_img/buttons/MOMO_Checkout_EN.jpg" style="width : 250px; height: 100px;" name="submit" alt="OnloneMomo, le réflexe sécurité pour payer en ligne" autocomplete="off" type="image" border="0">
-                                </form>
-                            @else
-                                <form id="invoiceDetails" me>
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="street" id="street" value="Malingo">
-                                    <input type="hidden" name="city" id="city" value="Buea">
-                                    <input type="hidden" name="state" id="state" value="South West">
-                                    <input type="hidden" name="postal_code" id="postal_code" value="6534">
-                                    <input type="hidden" name="country_code" id="country_code" value="CM">
-                                    <input type="hidden" name="email" id="email" value="{{ $customer->email }}">
-                                    <input type="hidden" name="first_name" id="first_name" value="{{ $customer->first_name }}">
-                                    <input type="hidden" name="last_name" id="last_name" value="{{ $customer->last_name }}">
-                                    <input type="hidden" name="room" id="room" value="">
-                                    <input type="hidden" name="quantity" id="quantity" value="{{ $payment->No_of_rooms }}">
-                                    <input type="hidden" name="price" id="price" value="{{ $package->price }}">
-                                    <input type="submit" class="btn btn-primary invoice" style="color:aliceblue;" id="sendInvoice" value="Send Invoice">
-                                    <a class="btn btn-danger" style="color:aliceblue; //display:none;" id="cancelInvoice">Cancel Invoice</a>
-                                </form>
-                            @endif
-                            
-
-                            
-
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="/api/momo" class="btn btn-secondary" style="color:aliceblue; //display:none;" id="momo"> MoMo</a>
-
-
-
-                            <script type="text/javascript">
-
-
-                                $(document).ready( function () {
-
-
-
-                                    $('#invoiceDetails').submit( function ( event ) {
-                                        /*
-                                        if ( $('.invoice').attr('id') == 'generateInvoice' ){
-                                            $('#generateInvoice').val('Send Invoice');
-                                            $('#generateInvoice').attr('id', 'sendInvoice');
-                                            $('#cancelInvoice').toggle();
-                                            var formdata = $(this).serializeFormJSON();
-                                            console.log(typeof $(this).serializeFormJSON());
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "/paypal/generateInvoice",
-                                                data: $(this).serializeFormJSON(),
-                                            });
-                                        }
-                                        else {
-                                            $.ajax({url:'/paypal/sendInvoice'});
-                                            $('#sendInvoice').val('Generate Invoice');
-                                            $('#sendInvoice').attr('id', 'generateInvoice');
-                                            $('#cancelInvoice').toggle();
-                                        }
-                                            $('#cancelInvoice').click(function( event) {
-                                            $.post('/paypal/cancelInvoice');
-                                            $('#sendInvoice').val('Send Invoice');
-                                            $('#sendInvoice').attr('id', 'generateInvoice');
-                                            $('#cancelInvoice').toggle();
-                                            event.preventDefault();
-                                        });
-                                        */
-
-                                        var formdata = $(this).serializeFormJSON();
-                                        console.log(typeof $(this).serializeFormJSON());
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "/paypal/sendInvoice",
-                                            data: $(this).serializeFormJSON(),
-                                        });
-                                        event.preventDefault();
-                                    });
-
-                                    $('#cancelInvoice').click(function( event ) {
-                                        $.post('/paypal/cancelInvoice');
-                                        event.preventDefault();
-                                    });
-
-                                });
-                                var email = '<?php echo $customer->email; ?>';
-                            </script>
-
-
-
-
-
-                        </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-        </div>
-
 @endsection
