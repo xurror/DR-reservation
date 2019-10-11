@@ -2,40 +2,6 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-auto msb py-8" id="msb">
-        <div class="container-fluid">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <div class="navbar-header">
-                    <div class="brand-wrapper">
-                        <!-- Brand -->
-                        <div class="brand-name-wrapper">
-                            <a class="navbar-brand" href="#">
-                                Digital Renter
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <ul class="nav flex-column">
-                    <li class="nav-item"><a href="/admin"><span class="glyphicon glyphicon-globe"></span> Dashboard</a></li>
-                    <li class="nav-item"><a href="/admin/customers"><span class="glyphicon glyphicon-globe"></span> Customers</a></li>
-                    <li class="nav-item"><a href="/admin/reservations"><span class="glyphicon glyphicon-signal"></span> Reservations</a></li>
-                    <li class="nav-item"><a href="/admin/settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-                    <li class="nav-item"><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-9">
-
-    </div>
-</div>
-
-
-
-
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
           <h1 class="h2">Dashboard</h1>
