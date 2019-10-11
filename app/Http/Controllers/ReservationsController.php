@@ -42,16 +42,11 @@ class ReservationsController extends Controller
             ->select('id')
             ->get();
 
-        $payments = DB::table('reservations')
-            ->select('id')
-            ->get();
-
         return view(
             'admin.reservations.create',
             [
                 'customers' => $customers,
-                'packages' => $packages,
-                'payments' => $payments
+                'packages' => $packages
             ]
         );
     }
@@ -123,9 +118,6 @@ class ReservationsController extends Controller
             ->where('id', $reservation->package_id)
             ->get();
         $package = $packages[0];
-
-
-
 
         $customers = DB::table('customers')
             ->select('id', 'first_name', 'last_name')

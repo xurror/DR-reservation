@@ -19,7 +19,7 @@ Route::get('/about', function () {
     return 'About';
 });
 
-Route::resource('admin/rooms', 'PackagesController');
+Route::resource('admin/packages', 'PackagesController');
 
 Route::resource('admin/payments', 'PaymentsController');
 
@@ -33,4 +33,3 @@ Route::get('/admin', 'AdminController@index')->name('admin.index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

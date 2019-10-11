@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class CustomersTableSeeder extends Seeder
 {
@@ -257,13 +258,19 @@ class CustomersTableSeeder extends Seeder
 
         );
 
+        $year = rand(2009, 2016);
+        $month = rand(1, 12);
+        $day = rand(1, 28);
+
+        $date = Carbon::create($year,$month ,$day , 0, 0, 0);        
+
         for ($i = 1; $i <= 20; $i++) {
             DB::table('customers')->insert([
                 'first_name' => Str::random(10),
                 'last_name' => Str::random(10),
                 'SSN' => Str::random(10),
                 'age' => rand(5, 40),
-                'date_of_birth' => new DateTime(),
+                'date_of_birth' => $date->format('Y-m-d H:i:s'),
                 'occupation' => Str::random(10),
                 'address_line_1' => str::random(10),
                 'address_line_2' => str::random(10),

@@ -15,15 +15,16 @@ class ReservationsTableSeeder extends Seeder
         $customer_ids = DB::table('customers')->pluck('id')->toArray();
         $package_ids = DB::table('packages')->pluck('id')->toArray();
 
-        $status = ['Reserved/Fully Paid', 'Reserved/Partially Paid', 'Reserved/Not paid'];
-
-        $year = rand(2009, 2016);
-        $month = rand(1, 12);
-        $day = rand(1, 28);
-
-        $date = Carbon::create($year,$month ,$day , 0, 0, 0);
+        $status = ['Reserved/Fully Paid', 'Reserved/Partially Paid', 'Reserved/Not paid'];        
 
         for ($i = 1; $i <= 20; $i++) {
+
+            $year = rand(2009, 2016);
+            $month = rand(1, 12);
+            $day = rand(1, 28);
+
+            $date = Carbon::create($year,$month ,$day , 0, 0, 0);
+            
             DB::table('reservations')->insert([
                 'customer_id' => $customer_ids[array_rand($customer_ids)],
                 'package_id' => $package_ids[array_rand($package_ids)],

@@ -21,10 +21,10 @@ class CreateReservationsTable extends Migration
             $table->date('to')->nullable();
             $table->string('status', 100);
             $table->unsignedInteger('No_of_packages')->nullable(false);
-            $table->foreign('customer_id')->references('id')->on('customers')
-            ->onUpdate('cascade');
-            $table->foreign('package_id')->references('id')->on('packages')
-            ->onUpdate('cascade');
+            $table->foreign('customer_id')->references('id')
+            ->on('customers')->onUpdate('cascade');
+            $table->foreign('package_id')->references('id')
+            ->on('packages')->onUpdate('cascade');
             $table->timestamps();
         });
     }

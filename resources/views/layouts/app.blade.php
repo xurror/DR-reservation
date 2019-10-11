@@ -34,7 +34,7 @@
             top: 0;
             bottom: 0;
             left: 0;
-            z-index: 100; /* Behind the navbar */
+            z-index: -100; /* Behind the navbar */
             padding: 0;
             box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
         }
@@ -42,7 +42,7 @@
         .sidebar-sticky {
             position: -webkit-sticky;
             position: sticky;
-            top: 48px; /* Height of navbar */
+            top: 200px; /* Height of navbar */
             height: calc(100vh - 48px);
             padding-top: .5rem;
             overflow-x: hidden;
@@ -74,7 +74,10 @@
         /*
         * Navbar
         */
-        
+        .navbar-brand {
+            background-color: rgba(0, 0, 0, .25);
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+        }
         
         .form-control-dark {
             color: #fff;
@@ -97,11 +100,11 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark flex-md-nowrap p-0">        
+    <nav class="navbar navbar-dark navbar-expand-md sticky-top position-sticky bg-dark flex-md-nowrap p-0">        
         <a class="px-5 navbar-brand col-sm-3 col-md-2 mr-0" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>                         
 
         <!-- Right Side Of Navbar -->
-        <ul class="navbar-nav ml-auto pull-right px-5">
+        <ul class="navbar-nav ml-auto pull-right">
             <!-- Authentication Links -->
             @guest
                 <li class="nav-item text-nowrap">
@@ -175,7 +178,14 @@
                                 <a class="nav-link" href="/admin/payments">
                                     <span class="fas fa-money-check-alt"></span>
                                     &ensp; Payments
+                                    <i class="fa fa-caret-down"></i>                                  
                                 </a>
+
+                                <ul class="nav flex-column px-5">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="">one</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
 
@@ -187,12 +197,12 @@
                         </h6>
 
                         <ul class="nav flex-column mb-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Current month
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                <span data-feather="file-text"></span>
+                                Current month
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -235,6 +245,28 @@
                 };
             })(jQuery);
         });
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+    
+            window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+    
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+                }, false);
+            });
+            }, false);
+        })();
     </script>
 
     <!-- Icons -->

@@ -15,13 +15,13 @@ class Reservation extends Model
         return $this->belongsTo('App\Models\Customer');
     }
 
-    public function rooms()
+    public function package()
     {
         return $this->belongsTo('App\Models\Rooms');
     }
 
     public function payment()
     {
-        return $this->hasOne('App\Models\Payment');
+        return $this->hasMany('App\Models\Payment');
     }
 }

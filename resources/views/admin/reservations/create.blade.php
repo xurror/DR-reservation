@@ -2,9 +2,6 @@
 
 @section('content')
 
-
-
-
     <div class="container">
             <nav>
                 <ol class="breadcrumb">

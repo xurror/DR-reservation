@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Package;
 
@@ -14,9 +15,16 @@ class PackagesController extends Controller
      */
     public function index()
     {
-        // return all
-        $packages = package::all();
-        return view('packages.index')->with('packages', $packages);
+        $packages = DB::table('packages')
+            ->select('packages.*')
+            ->paginate(10);
+
+        return view(
+            'admin.packages.index',
+            [
+                'packages'=> $packages
+            ]
+        );
     }
 
     /**
@@ -26,7 +34,7 @@ class PackagesController extends Controller
      */
     public function create()
     {
-        return view('packages.create');
+        return view('admin.packages.create');
     }
 
     /**
@@ -39,22 +47,22 @@ class PackagesController extends Controller
     {
         // validate input
         $this->validate($request, [
-            'package_size' => 'required',
-            'package_description' => 'required',
-            'package_price' => 'required',
-            'package_status' => 'required'
+            'size' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'status' => 'required'
         ]);
 
         // create package
         $package = new package;
-        $package->package_size = $request->input('package_size');
-        $package->package_description = $request->input('package_description');
-        $package->package_price = $request->input('package_price');
-        $package->package_status = $request->input('package_status');
+        $package->size = $request->input('size');
+        $package->description = $request->input('description');
+        $package->price = $request->input('price');
+        $package->status = $request->input('status');
         $package->save();
 
         // return redirect
-        return redirect('/packages')->with('success', 'package created');
+        return redirect('/admin/packages')->with('success', 'package created');
     }
 
     /**
@@ -67,7 +75,7 @@ class PackagesController extends Controller
     {
         //
         $package = package::find($id);
-        return view('packages.show')->with('package', $package);
+        return view('admin.packages.show')->with('package', $package);
     }
 
     /**
@@ -80,7 +88,7 @@ class PackagesController extends Controller
     {
         //
         $package = package::find($id);
-        return view('packages.edit')->with('package', $package);
+        return view('admin.packages.edit')->with('package', $package);
     }
 
     /**
@@ -92,24 +100,17 @@ class PackagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // validate input
-        $this->validate($request, [
-            'package_size' => 'required',
-            'package_description' => 'required',
-            'package_price' => 'required',
-            'package_status' => 'required'
-        ]);
 
         // create package
         $package = package::find($id);
-        $package->package_size = $request->input('package_size');
-        $package->package_description = $request->input('package_description');
-        $package->package_price = $request->input('package_price');
-        $package->package_status = $request->input('package_status');
+        $package->size = $request->input('size');
+        $package->description = $request->input('description');
+        $package->price = $request->input('price');
+        $package->status = $request->input('status');
         $package->save();
 
         // return redirect
-        return redirect('/packages')->with('success', 'package Updated');
+        return redirect('/admin/packages')->with('success', 'package Updated');
     }
 
     /**
