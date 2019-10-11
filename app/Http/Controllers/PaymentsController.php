@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Payment;
+use App\Customer;
+use App\Reservation;
+use App\Package;
 
 class PaymentsController extends Controller
 {
@@ -319,23 +322,17 @@ class PaymentsController extends Controller
      */
     public function show($id)
     {
-        $payments = DB::table('payments')
-            ->join('reservations', 'reservations.id', '=', 'payments.reservation_id')
-            ->select('payments.*', 'reservations.*')
-            ->get();
-        $payment = $payments[0];
+        $payment = Payment::find($id);
 
-        $customers = DB::table('customers')
-            ->select('*')
-            ->where('id', $payment->customer_id)
-            ->get();
-        $customer = $customers[0];
+        $reservation_id = $payment->reservation_id;
+        error_log($reservation_id);
+        $reservation = Reservation::find($reservation_id);
 
-        $packages = DB::table('packages')
-            ->select('*')
-            ->where('id', $payment->package_id)
-            ->get();
-        $package = $packages[0];
+        $customer_id = $reservation->customer_id;
+        $customer = Customer::find($customer_id);
+
+        $package_id = $reservation->package_id;
+        $package = Package::find($package_id);
         
         return view(
             'admin.payments.show',

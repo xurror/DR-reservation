@@ -389,7 +389,7 @@ class PaypalInvoice {
                             "email_address": "sb-jwnnl301506@personal.example.com",
                             "phones": [
                                 {
-                                    "country_code": "'. substr(($this->countryArray[$data['countryCode']])['code'], 0, 2) .'",
+                                    "country_code": "'. substr(($this->countryArray[$data['countryCode']])['code'], 0, 3) .'",
                                     "national_number": "'. $data['telephone'] .'",
                                     "phone_type": "HOME"
                                 }
@@ -438,7 +438,7 @@ class PaypalInvoice {
         $headers[] = 'Authorization: ' . $this->token_type . ' ' . $this->access_token;
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-        error_log('library creating invoice '.substr(($this->countryArray[$data['countryCode']])['code'], 0, 2));
+        error_log('library creating invoice '.substr(($this->countryArray[$data['countryCode']])['code'], 0, 3));
 
         $response = curl_exec($curl);
         $err = curl_error($curl);
