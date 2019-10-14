@@ -15,6 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', function () {
-    return 'Hello, World!';
+Route::get('/about', function () {
+    return 'About';
 });
+
+Route::resource('admin/packages', 'PackagesController');
+
+Route::resource('admin/payments', 'PaymentsController');
+
+Route::resource('admin/customers', 'CustomersController');
+
+Route::resource('admin/reservations', 'ReservationsController')->middleware('auth');;
+
+Auth::routes();
+
+Route::get('/admin', 'AdminController@index')->name('admin.index');
+
+Auth::routes();
+
