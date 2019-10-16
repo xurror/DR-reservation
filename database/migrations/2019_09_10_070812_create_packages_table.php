@@ -14,11 +14,11 @@ class CreatePackagesTable extends Migration
     public function up()
     {
         Schema::create('packages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('size', 45);
+            $table->increments('id');            
             $table->mediumText('description');
             $table->string('price', 100)->nullable(false);
             $table->string('status', 100)->nullable(false)->default(false);
+            $table->string('image', 100);
             $table->timestamps();
         });
     }

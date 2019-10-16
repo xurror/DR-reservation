@@ -17,22 +17,9 @@
                     <div class="card-header">Add Package</div>
 
                     <div class="card-body justify-content-center">
-                        <form method="POST" action="/admin/packages" id="package_form">
+                        <form method="POST" action="/admin/packages" id="package_form" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             {{ method_field('POST') }}
-                            <div class="form-group row">
-                                <label for="size" class="col-md-4 col-form-label text-md-right">{{ __('Size') }}</label>
-
-                                <div class="col-2">
-                                    <input id="size" type="number" class="form-control @error('size') is-invalid @enderror" name="size" value="{{ old('size') }}" required autocomplete="size">
-
-                                    @error('size')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <div class="form-group row">
                                 <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
@@ -77,6 +64,17 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
+                                
+                                <div class="col-4 input-group-lg">                                    
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="listing_image" id="inputGroupFile02 listing_image">
+                                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                                    </div>                                    
                                 </div>
                             </div>
 

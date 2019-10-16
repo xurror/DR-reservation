@@ -11,25 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ListingController@index')->name('listings.index');
 
-Route::get('/about', function () {
-    return 'About';
-});
-
-Route::resource('admin/packages', 'PackagesController');
-
-Route::resource('admin/payments', 'PaymentsController');
-
-Route::resource('admin/customers', 'CustomersController');
-
-Route::resource('admin/reservations', 'ReservationsController')->middleware('auth');;
+Route::get('/listing/{id}', 'ListingController@show')->name('listings.show');
 
 Auth::routes();
 
-Route::get('/admin', 'AdminController@index')->name('admin.index');
+Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware('auth');
+
+Route::resource('admin/packages', 'PackagesController')->middleware('auth');
+
+Route::resource('admin/payments', 'PaymentsController')->middleware('auth');
+
+Route::resource('admin/customers', 'CustomersController')->middleware('auth');
+
+Route::resource('admin/reservations', 'ReservationsController')->middleware('auth');
 
 Auth::routes();
 

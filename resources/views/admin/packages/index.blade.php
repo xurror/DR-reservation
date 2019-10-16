@@ -9,14 +9,14 @@
 
     
     <div class="table-responsive">
-        <table class="table table-sm">
+        <table class="table table-hover table-sm">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Size</th>
                     <th scope="col">Description</th>
                     <th scope="col">Price</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -32,10 +32,10 @@
                                 {{ $package->id }}
                             </a>
                         </td>
-                        <th>{{ $package->size }}</th>
                         <td>{{ $package->description }}</td>
                         <td>{{ $package->price }}</td>
                         <td>{{ $package->status }}</td>
+                        <th>{{ $package->image }}</th>
 
                         <td>
                             <a href="/admin/packages/{{ $package->id }}/edit" class="btn btn-outline-primary fas fa-edit"></a>
@@ -80,13 +80,13 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p><big><label>Size:</label>&ensp; {{ $package->size }}</big></p>
                             <p><big><label>Description:</label>&ensp; {{ $package->description }}</big></p>
                             <p><big><label>Price:</label>&ensp; {{ $package->price }}</big></p>
                             <p><big><label>Status:</label>&ensp; {{ $package->status }}</big></p>
+                            <p><big><label>Image:</label>&ensp; {{ $package->image }}</big></p>
                         </div>
                         <div class="modal-footer">
-                            <a href="/packages/{{ $package->id }}/edit">
+                            <a href="/admin/packages/{{ $package->id }}/edit">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a>
                             &ensp;

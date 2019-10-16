@@ -47,18 +47,34 @@ class PackagesController extends Controller
     {
         // validate input
         $this->validate($request, [
-            'size' => 'required',
+            'image' => 'image|nullable|max:1999',
             'description' => 'required',
             'price' => 'required',
             'status' => 'required'
         ]);
 
+        //Handle FIle Upload
+        if($request->hasFile('listing_image')) {
+            //Get filename with the extension
+            $filenameWithExt = $request->file('listing_image')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get jsut extension
+            $extension = $request->file('listing_image')->getClientOriginalExtension();
+            // Filename to store
+            $filenameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('listing_image')->storeAs('public/listing_images', $filenameToStore);
+        } else {
+            $filenameToStore = 'noimage.jpg';
+        }
+
         // create package
         $package = new package;
-        $package->size = $request->input('size');
         $package->description = $request->input('description');
         $package->price = $request->input('price');
         $package->status = $request->input('status');
+        $package->image = $filenameToStore;
         $package->save();
 
         // return redirect
@@ -101,12 +117,28 @@ class PackagesController extends Controller
     public function update(Request $request, $id)
     {
 
+        //Handle FIle Upload
+        if($request->hasFile('listing_image')) {
+            //Get filename with the extension
+            $filenameWithExt = $request->file('listing_image')->getClientOriginalName();
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get jsut extension
+            $extension = $request->file('listing_image')->getClientOriginalExtension();
+            // Filename to store
+            $filenameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('listing_image')->storeAs('public/listing_images', $filenameToStore);
+        } else {
+            $filenameToStore = 'noimage.jpg';
+        }
+
         // create package
         $package = package::find($id);
-        $package->size = $request->input('size');
         $package->description = $request->input('description');
         $package->price = $request->input('price');
         $package->status = $request->input('status');
+        $package->image = $filenameToStore;
         $package->save();
 
         // return redirect
