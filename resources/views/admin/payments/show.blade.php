@@ -11,7 +11,7 @@
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">Your cart</span>
-                    <span class="badge badge-secondary badge-pill">{{ $payment->No_of_packages }}</span>
+                    <span class="badge badge-secondary badge-pill">{{ $reservation->No_of_packages }}</span>
                 </h4>
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -36,7 +36,7 @@
                     -->
                     <li class="list-group-item d-flex justify-content-between">
                         <span class="mx-sm-3">Total (USD)</span>
-                        <input type="number" class="form-control mx-sm-5" name="amount" id="amount" form="formpaypal" placeholder="" value="{{ $package->price * $payment->No_of_packages }}" readonly>
+                        <input type="number" class="form-control mx-sm-5" name="amount" id="amount" form="formpaypal" placeholder="" value="{{ $package->price * $reservation->No_of_packages }}" readonly>
                     </li>
                 </ul>
                 <!--
@@ -175,12 +175,8 @@
                         </button>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <input type="hidden" name="idbouton" value="2" autocomplete="off" form="formmomo">
-                        <input type="hidden" name="typebouton" value="PAIE" autocomplete="off" form="formmomo">
-                        <input class="momo mount" type="hidden" placeholder="" name="_amount" id="momoAmount" value="0" id="montant" autocomplete="off" form="formmomo">
-                        <input class="momo host" type="hidden" placeholder="" name="_tel" id="momoTelephone" value="652741226" autocomplete="off" form="formmomo">
-                        <input class="momo pwd" placeholder="" name="_clP" value="" autocomplete="off" type="hidden" form="formmomo">
-                        <input type="hidden" name="_email" value="kaze.nasser@outlook.com" autocomplete="off" form="formmomo">
+                        <input type="hidden" name="_amount" id="momoAmount" value="" id="montant" form="formmomo">
+                        <input type="hidden" name="_tel" id="momoTelephone" value="" form="formmomo">
                         <button id="momobutton" name="submit" class="btn bg-warning fas fa-money-bill-wave" type="submit" form="formmomo">
                             MoMo
                         </button>
@@ -216,7 +212,7 @@
         $('#formmomo').submit( function ( event ) {
             var input_telephone = $('#telephone').val();
             $('#momoTelephone').val(input_telephone);
-            alert(input_telephone);
+            
             if (input_telephone.length != 9){
                 setTimeout(function(){
                     $('#alert-danger').fadeToggle("slow");
@@ -226,10 +222,9 @@
             else {
                 var input_amount = $('#amount').val();
                 $('#momoAmount').val(input_amount);
-                alert(input_amount);
                 $.ajax({
                     type: "GET",
-                    url: "https://developer.mtn.cm/OnlineMomoWeb/faces/transaction/transactionRequest.xhtml",
+                    url: "/api/momo-invoice",
                     data: $(this).serializeFormJSON(),
                     success: function() {
                         setTimeout(function(){

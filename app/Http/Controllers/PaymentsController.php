@@ -340,6 +340,7 @@ class PaymentsController extends Controller
                 'payment' => $payment,
                 'customer' => $customer,
                 'package' => $package,
+                'reservation' => $reservation,
                 'countryCodes' => $this->countrycodes
             ]
         );
