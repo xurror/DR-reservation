@@ -14,4 +14,9 @@ class Customer extends Model
     {
         return $this->hasMany('App\Models\Reservation');
     }
+
+    public function paymentRequest()
+    {
+        return $this->hasMany('App\Models\PaymentRequest');
+    }
 }

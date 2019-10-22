@@ -76,14 +76,3 @@ Route::get('momo-invoice', function (Request $request) {
     }
     
 });
-
-Route::get('email', function() {
-    
-    $to_name = 'Xurror Miles';
-    $to_email = 'kaze.nasser@outlook.com';
-    $data = array();
-    Mail::send('emails.invoice', $data, function($message) use ($to_name, $to_email) {
-        $message->to($to_email, $to_name)->subject("Laravel Test Mail");
-        $message->from('kazenasser@gmail.com','Test Mail');
-    });
-});

@@ -11,7 +11,7 @@
     <div class="container bg-white">
         <br>
         <div class="bg-light justify-content-center p-lg-3">
-            <h1 class="text-center">Hello, Customer</h1>
+            <h1 class="text-center">{{ __('Hello, ' . $customer->first_name . ' ' . $customer->last_name)}}</h1>
         </div>
         <br>
         <br>
@@ -38,7 +38,7 @@
                             <div class="row justify-content-md-end">
                                 <div class="card py-2 col-5">
                                     <div class="text-center">{{ __('Amount due') }}</div>
-                                    <div class="text-center font-weight-bold">{{ __('$1000 USD') }}</div>
+                                    <div class="text-center font-weight-bold">{{ __($package->price . ' Frs CFA') }}</div>
                                 </div>
                             </div>
                         </div>
@@ -48,13 +48,13 @@
                 <div class="container px-5">
                     <div class="text-left font-weight-bold mb-0">{{ __('Bill To:') }}</div>
                     <br>
-                    <div class="text-left">{{ __('Name: First + Last Name') }}</div>
-                    <div class="text-left">{{ __('Address: Home') }}</div>
-                    <div class="text-left">{{ __('City: Home') }}</div>
-                    <div class="text-left">{{ __('Country: Home') }}</div>
-                    <div class="text-left">{{ __('Phone: 237 652741226') }}</div>
+                    <div class="text-left">{{ __($customer->first_name .' '. $customer->last_name) }}</div>
+                    <div class="text-left">{{ __($customer->address_line_1) }}</div>
+                    <div class="text-left">{{ __($customer->city) }}</div>
+                    <div class="text-left">{{ __($customer->country_code) }}</div>
+                    <div class="text-left">{{ __('Phone: ' . $customer->telephone) }}</div>
                     <br>
-                    <div class="text-left">{{ __('sb-dvz59300499@business.example.com') }}</div>
+                    <div class="text-left">{{ __($customer->email) }}</div>
                 </div> 
                 <hr>
                 <div class="container px-5">
@@ -68,10 +68,10 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td width="60%">{{ __('Description') }}</td>
+                                <td width="60%">{{ __($package->description) }}</td>
                                 <td class="text-left">{{ __('1') }}</td>
-                                <td class="text-left">{{ __('$990 USD') }}</td>
-                                <td class="text-left">{{ __('$990 USD') }}</td>
+                                <td class="text-left">{{ __($package->price .' Frs CFA') }}</td>
+                                <td class="text-left">{{ __($package->price .' Frs CFA') }}</td>
                             </tr>                                
                         </tbody>
                     </table>
@@ -81,7 +81,7 @@
                             <tr>
                                 <td width="60%">{{ __('') }}</td>
                                 <td width="25%" class="text-left" colspan="2">{{ __('Subtotal') }}</td>
-                                <td class="text-left">{{ __('$990 USD') }}</td>
+                                <td class="text-left">{{ __($package->price .' Frs CFA') }}</td>
                             </tr>
                             <tr>
                                 <td width="60%">{{ __('') }}</td>
@@ -91,26 +91,27 @@
                             <tr>
                                 <td width="60%">{{ __('') }}</td>
                                 <th width="25%" class="text-left" colspan="2">{{ __('Total') }}</th>
-                                <td class="text-left">{{ __('$1000 USD') }}</td>
+                                <td class="text-left">{{ __($package->price .' Frs CFA') }}</td>
                             </tr>
                             <tr>
                                 <td width="60%">{{ __('') }}</td>
                                 <th width="25%" class="text-left" colspan="2">{{ __('Minimum Amount Due') }}</th>
-                                <td class="text-left">{{ __('$250 USD') }}</td>
+                                <td class="text-left">{{ __($package->price * 0.25 .' Frs CFA') }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div> 
                 
                 <div class="card-footer">                
-                    <form action="" method="POST">
+                    <form action="{{ url('/momo/validateInvoice') }}" method="POST">
                         <div class="row justify-content-lg-end">
-                            <div class="col-3">
+                            <div class="col-3">                                
                                 <input type="text" class="form-control" name="amount" id="">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" class="form-control" name="telephone" id="" value="652741226">
                             </div>
                             <div class="col-3">
-                                <button type="submit" class="btn btn-warning">Pay</button>
+                                <button type="submit" class="btn btn-warning">{{ __('Pay') }}</button>
                             </div>
                         </div>
                     </form>

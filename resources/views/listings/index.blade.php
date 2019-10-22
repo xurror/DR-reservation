@@ -2,7 +2,7 @@
 
 @section('content')
     
-<a href="/api/email">Send Notif</a>
+    <a href="/api/email">Send Notif</a>
     <div class="album py-5 bg-light">
         <div class="row">
             @foreach ($packages as $package)

@@ -15,6 +15,12 @@ Route::get('/', 'ListingController@index')->name('listings.index');
 
 Route::get('/listing/{id}', 'ListingController@show')->name('listings.show');
 
+Route::post('/momo/sendInvoice', 'MoMoController@sendInvoice');
+
+Route::post('/momo/validateInvoice', 'MoMoController@validateInvoice');
+
+Route::get('/momo/invoice/{id}', 'MoMoController@showInvoice');
+
 Auth::routes();
 
 Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware('auth');

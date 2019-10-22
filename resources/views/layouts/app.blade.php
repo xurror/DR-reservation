@@ -25,7 +25,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
-        
+        #myTable td:hover {
+            cursor: pointer;
+        }
+
         /*
         * Sidebar
         */
