@@ -1,8 +1,4 @@
 <?php
-<<<<<<< HEAD
-
-=======
->>>>>>> e075166... add web.php
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-<<<<<<< HEAD
 
 Route::get('/', 'ListingController@index');
 
@@ -41,18 +36,3 @@ Route::resource('admin/reservations', 'ReservationsController')->middleware('aut
 
 Auth::routes();
 
-=======
-Route::get('/', 'ListingController@index');
-Route::get('/listing/{id}', 'ListingController@show');
-Route::get('/listing/reservation/{id}', 'ListingController@reservation');
-Route::post('/momo/sendInvoice', 'MoMoController@sendInvoice');
-Route::post('/momo/validateInvoice', 'MoMoController@validateInvoice');
-Route::get('/momo/invoice/{id}', 'MoMoController@showInvoice');
-Auth::routes();
-Route::get('/admin', 'AdminController@index')->middleware('auth');
-Route::resource('admin/packages', 'PackagesController')->middleware('auth');
-Route::resource('admin/payments', 'PaymentsController')->middleware('auth');
-Route::resource('admin/customers', 'CustomersController')->middleware('auth');
-Route::resource('admin/reservations', 'ReservationsController')->middleware('auth');
-Auth::routes();
->>>>>>> e075166... add web.php
