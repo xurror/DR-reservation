@@ -25,6 +25,7 @@
       <thead>
         <tr>
           <th>{{ __('#') }}</th>
+          <th width="10%">{{ __('Reservation ID') }}</th>
           <th>{{ __('Guest Name') }}</th>
           <th>{{ __('Package Description') }}</th>
           <th>{{ __('method') }}</th>          
@@ -34,6 +35,7 @@
         @foreach ($requests as $request)
           <tr>
             <td><a href="{{ url('/admin/payments/' . $request->id) }}">{{ __($request->id) }}</a></td>
+            <td width="10%">{{ __($request->reservation_id) }}</td>
             <td>{{ __($request->first_name . ' ' . $request->last_name) }}</td>            
             <td>{{ __($request->description) }}</td>
             <td>{{ __($request->method) }}</td>

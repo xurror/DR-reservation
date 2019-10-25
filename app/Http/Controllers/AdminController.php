@@ -24,10 +24,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $requests = DB::table('requests')
-            ->join('customers', 'customers.id', '=', 'requests.customer_id')
-            ->join('packages', 'packages.id', '=', 'requests.package_id')
-            ->select('requests.*', 'customers.first_name', 'customers.last_name', 'packages.description')
+        $requests = DB::table('payment_requests')
+            ->join('reservations', 'reservations.id', 'payment_requests.reservation_id')
+            ->join('customers', 'customers.id', '=', 'reservations.customer_id')
+            ->join('packages', 'packages.id', '=', 'reservations.package_id')
+            ->join('payments', 'payments.id', '=', 'payment_requests.payment_id')
+            ->select('payment_requests.*', 'payments.method', 'customers.first_name', 'customers.last_name', 'packages.description')
             ->get();
             
         return view('admin.index',

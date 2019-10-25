@@ -169,21 +169,25 @@
                 <h4 class="mb-3">{{ __('Invoice') }}</h4>
     
                 <div class="row">
-                    <div class="col-md-3 mb-3">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}" form="formpaypal">
-                        <button class="btn btn-primary fab fa-paypal" id="paypalbutton" form="formpaypal" >
-                                {{ __('PayPal') }}
-                        </button>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <input type="hidden" name="_amount" id="momoAmount" value="" id="montant" form="formmomo">
-                        <input type="hidden" name="_tel" id="momoTelephone" value="" form="formmomo">
-                        <input type="hidden" name="request_id" value="{{ __($request_id) }}" form="formmomo">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" form="formmomo">
-                        <button id="momobutton" name="submit" class="btn bg-warning fas fa-money-bill-wave" type="submit" form="formmomo">
-                            {{ __('MoMo') }}
-                        </button>
-                    </div>
+                    @if ($payment->method == 'MoMo')
+                        <div class="col-md-3 mb-3">
+                            <input type="hidden" name="_amount" id="momoAmount" value="" id="montant" form="formmomo">
+                            <input type="hidden" name="_tel" id="momoTelephone" value="" form="formmomo">
+                            <input type="hidden" name="request_id" value="{{ __($request->id) }}" form="formmomo">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" form="formmomo">
+                            <button id="momobutton" name="submit" class="btn bg-warning fas fa-money-bill-wave" type="submit" form="formmomo">
+                                {{ __('MoMo') }}
+                            </button>
+                        </div>                        
+                    @else
+                        <div class="col-md-3 mb-3">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}" form="formpaypal">
+                            <button class="btn btn-primary fab fa-paypal" id="paypalbutton" form="formpaypal" >
+                                    {{ __('PayPal') }}
+                            </button>
+                        </div>
+                    @endif
+                    
                 </div>
                 <div class="row">
                     <div class="col-md-3 mb-3">

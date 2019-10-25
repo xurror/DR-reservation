@@ -143,7 +143,7 @@
             @guest
 
                 @if (Route::has('register'))
-                    ...
+                    
                 @endif
             @else
                 <nav class="col-md-2 d-none d-md-block bg-white sidebar">
@@ -152,44 +152,44 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/admin">
                                     <span class="fas fa-tachometer-alt"></span>
-                                    &ensp; Dashboard
+                                    &ensp; {{ __('Dashboard') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/admin/customers">
                                     <span class="fas fa-users"></span>
-                                    &ensp; Customers
+                                    &ensp; {{ __('Customers') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/admin/packages">
                                     <span class="fas fa-archive"></span>
-                                    &ensp; Packages
+                                    &ensp; {{ __('Packages') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/admin/reservations">
                                     <span class="fas fa-hdd"></span>
-                                    &ensp; Reservations
+                                    &ensp; {{ __('Reservations') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/admin/payments">
                                     <span class="fas fa-money-check-alt"></span>
-                                    &ensp; Payments
+                                    &ensp; {{ __('Payments') }}
                                     <i class="fa fa-caret-down"></i>                                  
                                 </a>
 
                                 <ul class="nav flex-column px-5">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="">one</a>
+                                        <a class="nav-link" href="">{{ __('one') }}</a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
 
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                            <span>Saved reports</span>
+                            <span>{{ __('Saved reports') }}</span>
                             <a class="d-flex align-items-center text-muted" href="#">
                                 <span data-feather="plus-circle"></span>
                             </a>
@@ -199,7 +199,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                 <span data-feather="file-text"></span>
-                                Current month
+                                {{ __('Current month') }}
                                 </a>
                             </li>
                         </ul>

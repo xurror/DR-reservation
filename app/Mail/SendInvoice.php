@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Customer;
 use App\Package;
 use App\PaymentRequest;
+use App\Reservation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -15,7 +16,8 @@ class SendInvoice extends Mailable
     use Queueable, SerializesModels;
 
     private $payment_request;
-    private $customer;
+      private $reservation;
+      private $customer;
     private $package;
 
     /**
@@ -26,8 +28,9 @@ class SendInvoice extends Mailable
     public function __construct(PaymentRequest $payment_request)
     {
         $this->payment_request = $payment_request;
-        $this->customer = Customer::find($payment_request->customer_id);
-        $this->package = Package::find($payment_request->package_id);
+        $this->reservation = Reservation::find($payment_request->reservation_id);
+        $this->customer = Customer::find($this->reservation->customer_id);
+        $this->package = Package::find($this->reservation->package_id);
     }
 
     /**

@@ -81,57 +81,31 @@ class PaymentsController extends Controller
     {
         $countryAbbr = config('countries.abbr');
 
-        error_log($countryAbbr['CM']);
-        error_log('Hop crap Nasser');
+        $payment_requests = DB::table('payment_requests')->where('id', $id)->get();
+        $payment_request = $payment_requests[0];
 
-        try{
-            $payment = Payment::find($id);
+        $payment = Payment::find($payment_request->payment_id);
 
-            $reservation_id = $payment->reservation_id;
-            error_log($reservation_id);
-            $reservation = Reservation::find($reservation_id);
+        $reservation_id = $payment_request->reservation_id;
+        $reservation = Reservation::find($reservation_id);
 
-            $customer_id = $reservation->customer_id;
-            $customer = Customer::find($customer_id);
+        $customer_id = $reservation->customer_id;
+        $customer = Customer::find($customer_id);
 
-            $package_id = $reservation->package_id;
-            $package = Package::find($package_id);
+        $package_id = $reservation->package_id;
+        $package = Package::find($package_id);
 
-            return view(
-                'admin.payments.show',
-                [
-                    'payment' => $payment,
-                    'customer' => $customer,
-                    'package' => $package,
-                    'reservation' => $reservation,
-                    'countryAbbr' => $countryAbbr,
-                ]
-            );
-
-        } catch (Exception $e) {
-            error_log('Ok Exception');
-            $requests = DB::table('requests')->where('id', $id)->get();
-
-            error_log(gettype($requests));
-            $request = $requests[0];
-            $request_id = $id;
-
-            $customer_id = $request->customer_id;
-            $customer = Customer::find($customer_id);
-
-            $package_id = $request->package_id;
-            $package = Package::find($package_id);
-
-            return view(
-                'admin.payments.show',
-                [
-                    'request_id' => $request_id,
-                    'customer' => $customer,
-                    'package' => $package,
-                    'countryAbbr' => $countryAbbr,
-                ]
-            );
-        }
+        return view(
+            'admin.payments.show',
+            [
+                'request' => $payment_request,                    
+                'countryAbbr' => $countryAbbr,
+                'reservation' => $reservation,
+                'customer' => $customer,
+                'payment' => $payment,
+                'package' => $package,
+            ]
+        );
 
     }
 

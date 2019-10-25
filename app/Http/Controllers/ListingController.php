@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\PaymentRequest;
 use App\Package;
 
 class ListingController extends Controller
 {
     public function index() {
         //'image' => 'image|nullable|max:1999'
+        $payment_request = new PaymentRequest();
         $packages = DB::table('packages')
             ->select('packages.*')
             ->paginate(10);
@@ -24,12 +26,16 @@ class ListingController extends Controller
 
     public function show($id)
     {
-        //
         $package = package::find($id);
         return view('listings.show')->with('package', $package);
     }
 
-    public function request(Request $request){
+    public function reservation($id) {
+        $package = package::find($id);
+        return view('listings.reserve')->with('package', $package);
+    }
+
+    public function reserve(Request $request){
         
         $customer_id = DB::table('customers')->insertGetId(
             [
@@ -49,15 +55,30 @@ class ListingController extends Controller
             ]
         );
 
-        DB::table('requests')->updateOrInsert(
+        $reservation_id = DB::table('reservations')->insertGetId(
             [
                 'customer_id' => $customer_id,
                 'package_id' => $request->input('package_id'),
-                'method' => $request->input('method'),
+                'to' => $request->input('from'),
+                'from' => $request->input('to'),
             ]
         );
 
-        return redirect('/')->with('success', 'Your request was properly processed');
+        $payment_id = DB::table('payments')->insertGetId(
+            [
+                'amount' => 0,
+                'method' => $request->input('method')
+            ]
+        );
+
+        DB::table('payment_requests')->updateOrInsert(
+            [
+                'reservation_id' => $reservation_id,
+                'payment_id' => $payment_id,
+            ]
+        );
+
+        return redirect('/')->with('success', 'Your request was properly processed, an email will be sent to you soon with the transaction details');
 
     }
 }

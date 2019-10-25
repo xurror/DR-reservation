@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', 'ListingController@index')->name('listings.index');
+Route::get('/', 'ListingController@index');
 
-Route::get('/listing/{id}', 'ListingController@show')->name('listings.show');
+Route::get('/listing/{id}', 'ListingController@show');
+
+Route::get('/listing/reservation/{id}', 'ListingController@reservation');
 
 Route::post('/momo/sendInvoice', 'MoMoController@sendInvoice');
 
@@ -23,7 +25,7 @@ Route::get('/momo/invoice/{id}', 'MoMoController@showInvoice');
 
 Auth::routes();
 
-Route::get('/admin', 'AdminController@index')->name('admin.index')->middleware('auth');
+Route::get('/admin', 'AdminController@index')->middleware('auth');
 
 Route::resource('admin/packages', 'PackagesController')->middleware('auth');
 
